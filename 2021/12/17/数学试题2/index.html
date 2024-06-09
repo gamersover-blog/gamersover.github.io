@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_logo_custom32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_logo_custom16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-rqJrmmkVwO">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+  </script>
+
+  <meta name="description" content="$1. $ \(f(x)&#x3D;3ax^2 + 2bx + c\)，若\(a+b+c&#x3D;0, f(0)f(1)&gt;0\)，求证： （1）方程\(f(x)&#x3D;0\)有实根； （2）\(\displaystyle -2 &lt; \frac{b}{a} &lt; -1\)； （3）设\(x_1,x_2\)是方程\(f(x)&#x3D;0\)的两个实根，则\(\displaystyle \frac{\sqrt 3}{3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数学试题二：高中篇1">
+<meta property="og:url" content="http://yoursite.com/2021/12/17/%E6%95%B0%E5%AD%A6%E8%AF%95%E9%A2%982/index.html">
+<meta property="og:site_name" content="尘雨尘风">
+<meta property="og:description" content="$1. $ \(f(x)&#x3D;3ax^2 + 2bx + c\)，若\(a+b+c&#x3D;0, f(0)f(1)&gt;0\)，求证： （1）方程\(f(x)&#x3D;0\)有实根； （2）\(\displaystyle -2 &lt; \frac{b}{a} &lt; -1\)； （3）设\(x_1,x_2\)是方程\(f(x)&#x3D;0\)的两个实根，则\(\displaystyle \frac{\sqrt 3}{3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题1/xxx.5irsesusr580.webp">
+<meta property="og:image" content="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题1/xxx.6ykaxfxmny80.webp">
+<meta property="og:image" content="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题2/xxx.5f9uqgn734o0.webp">
+<meta property="article:published_time" content="2021-12-17T04:33:34.000Z">
+<meta property="article:modified_time" content="2021-12-17T04:33:34.000Z">
+<meta property="article:author" content="陈华杰">
+<meta property="article:tag" content="数学试题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题1/xxx.5irsesusr580.webp">
+
+<link rel="canonical" href="http://yoursite.com/2021/12/17/%E6%95%B0%E5%AD%A6%E8%AF%95%E9%A2%982/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>数学试题二：高中篇1 | 尘雨尘风</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">尘雨尘风</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">数学与编程的爱好者</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">86</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">162</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/17/%E6%95%B0%E5%AD%A6%E8%AF%95%E9%A2%982/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数学试题二：高中篇1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-17 12:33:34" itemprop="dateCreated datePublished" datetime="2021-12-17T12:33:34+08:00">2021-12-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>$1. $ <span class="math inline">\(f(x)=3ax^2 + 2bx +
+c\)</span>，若<span class="math inline">\(a+b+c=0,
+f(0)f(1)&gt;0\)</span>，求证：<br />
+（1）方程<span class="math inline">\(f(x)=0\)</span>有实根；<br />
+（2）<span class="math inline">\(\displaystyle -2 &lt; \frac{b}{a} &lt;
+-1\)</span>；<br />
+（3）设<span class="math inline">\(x_1,x_2\)</span>是方程<span
+class="math inline">\(f(x)=0\)</span>的两个实根，则<span
+class="math inline">\(\displaystyle \frac{\sqrt 3}{3} &lt; |x_1 - x_2|
+&lt; \frac{2}{3}\)</span>。</p>
+<span id="more"></span>
+<p>$2. $ 已知<span class="math inline">\(f(x)\)</span>是定义在<span
+class="math inline">\([-1,1]\)</span>的奇函数，且<span
+class="math inline">\(f(1)=1\)</span>，若<span class="math inline">\(a,
+b \in [-1, 1], a+b \ne 0\)</span>，有<span
+class="math inline">\(\displaystyle \frac{f(a)+f(b)}{a+b} &gt;0\)</span>
+恒成立，<br />
+（1）判断<span class="math inline">\(f(x)\)</span>在<span
+class="math inline">\([-1,1]\)</span>的单调性。<br />
+（2）若<span class="math inline">\(f(x) \le
+m^2-2am+1\)</span>，对所有<span class="math inline">\(x \in [-1, 1], a
+\in [-1, 1]\)</span>恒成立，求<span
+class="math inline">\(m\)</span>的取值范围。</p>
+<p>$3. $ 设实数<span class="math inline">\(a,b,c\)</span>满足<br />
+<span class="math display">\[
+    \left\{  \begin{aligned}
+        &amp; a^2 - bc -8a + 7 = 0 \\
+        &amp; b^2 + c^2 + bc - 6a + 6 = 0
+    \end{aligned}
+    \right.
+\]</span><br />
+求<span class="math inline">\(a\)</span>的取值范围。</p>
+<p>$4. $ 已知<span class="math inline">\(a,b,c\)</span>都不是小于<span
+class="math inline">\(1\)</span>的实数，满足<span
+class="math inline">\(a \cdot b \cdot c = 10\)</span>，并且<span
+class="math inline">\(a^{\lg a} \cdot b^{\lg b} \cdot c^{\lg c} \ge
+10\)</span>，求<span class="math inline">\(a+b+c\)</span>的值。</p>
+<p>$5. $ 函数<span class="math inline">\(f(x)\)</span>的定义域为<span
+class="math inline">\([0, +\infty)\)</span>，且满足<br />
+（1）<span class="math inline">\(f(x)\)</span>在<span
+class="math inline">\((0, +\infty)\)</span>上递增；<br />
+（2）对<span class="math inline">\(x&gt;0\)</span>，均有<span
+class="math inline">\(\displaystyle
+f(f(x)+\frac{1}{x})=1\)</span>；<br />
+求<span class="math inline">\(f(1)\)</span>。</p>
+<p>$6. $ <span class="math inline">\(f(x+3)f(1-x)=0\)</span>有<span
+class="math inline">\(5\)</span>个实数根，则这<span
+class="math inline">\(5\)</span>个根之和为？</p>
+<p>$7. $ <span class="math inline">\(\triangle ABC\)</span>中，点<span
+class="math inline">\(G\)</span>为中线<span
+class="math inline">\(AM\)</span>的中点，过点<span
+class="math inline">\(G\)</span>作<span
+class="math inline">\(PQ\)</span>分别交<span
+class="math inline">\(AB,AC\)</span>于点<span
+class="math inline">\(P,Q\)</span>，若<span
+class="math inline">\(AP=hAB, AQ=kAC\)</span>，<span
+class="math inline">\(\triangle APQ\)</span>的面积为<span
+class="math inline">\(S\)</span>，<span class="math inline">\(\triangle
+ABC\)</span>的面积为<span class="math inline">\(T\)</span>，求<br />
+（1）<span class="math inline">\(\displaystyle \frac{1}{h} +
+\frac{1}{k}\)</span>的值；<br />
+（2）<span class="math inline">\(\displaystyle
+\frac{S}{T}\)</span>的最小值。</p>
+<p><img src="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题1/xxx.5irsesusr580.webp" width="30%"></p>
+<p>$8. $ <span class="math inline">\(a,b,c\)</span>为非负数，求<span
+class="math inline">\(\displaystyle
+f(a,b,c)=\frac{c}{a}+\frac{a}{b+c}+\frac{b}{c}\)</span>的最小值？</p>
+<p>$9. $ 求<span class="math inline">\(\displaystyle
+\sqrt{\frac{4x+3}{x+1}} +
+\sqrt{\frac{5x+6}{x+1}}\)</span>的定义域和值域。</p>
+<p>$10. $ 不等式<span class="math inline">\(\displaystyle \sqrt{x} \ge
+ax + \frac{3}{2}\)</span>的解集为<span
+class="math inline">\((4,b)\)</span>，则实数<span
+class="math inline">\(a,b\)</span>为？</p>
+<p>$11. $ 正方体<span
+class="math inline">\(ABCD-A_1B_1C_1D_1\)</span>的棱长为1，对角线<span
+class="math inline">\(BD_1\)</span>的截面面积记为<span
+class="math inline">\(S\)</span>，则<span
+class="math inline">\(S\)</span>的取值范围是？</p>
+<p>$12. $ 已知<span class="math inline">\(\sin \alpha + \sin \beta =
+\sqrt 2, \cos \alpha + \cos \beta = \frac{2\sqrt 3}{3}\)</span>，求<span
+class="math inline">\(\tan \alpha \tan \beta\)</span>的值。</p>
+<p>$13. $ <span class="math inline">\(\triangle
+ABC\)</span>中，内角<span class="math inline">\(A,B,C\)</span>满足<span
+class="math inline">\(2 \sin B = \sin A + \sin C\)</span>，求<span
+class="math inline">\(5 \cos A - 4 \cos A \cos C + 5 \cos
+C\)</span>的值。</p>
+<p>$14. $ 已知<span class="math inline">\(\displaystyle \frac{\sin^2
+\gamma}{\sin^2 \alpha} = 1 - \frac{\tan (\alpha - \beta)}{\tan
+\alpha}\)</span>，求证<span class="math inline">\(\tan^2 \gamma = \tan
+\alpha \tan \beta\)</span>。</p>
+<p>$15. $ 已知正方形<span
+class="math inline">\(ABCD\)</span>的边长为<span
+class="math inline">\(1\)</span>，<span
+class="math inline">\(P,Q\)</span>分别是<span
+class="math inline">\(AD,AB\)</span>上的点，<span
+class="math inline">\(\triangle APQ\)</span>的周长为<span
+class="math inline">\(2\)</span>，求<span class="math inline">\(\angle
+PCQ\)</span>。</p>
+<p>$16. $ 在<span class="math inline">\(\triangle ABC\)</span>中，<span
+class="math inline">\(AB=AC\)</span>，点<span
+class="math inline">\(D\)</span>是<span
+class="math inline">\(BC\)</span>的中点，点<span
+class="math inline">\(E\)</span>是从点<span
+class="math inline">\(D\)</span>作<span
+class="math inline">\(AC\)</span>的垂线的垂足，点<span
+class="math inline">\(F\)</span>是<span
+class="math inline">\(DE\)</span>的中点，证明<span
+class="math inline">\(AF \perp BE\)</span>。</p>
+<p><img src="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题1/xxx.6ykaxfxmny80.webp" width="25%"></p>
+<p>$17. $ 已知点<span class="math inline">\(P\)</span>是<span
+class="math inline">\(\triangle ABC\)</span>内一点，且<span
+class="math inline">\(\displaystyle \overrightarrow{AP} = \frac{2}{5}
+\overrightarrow{AB} + \frac{1}{3} \overrightarrow{AC}\)</span>，则<span
+class="math inline">\(\triangle ABP\)</span>和<span
+class="math inline">\(\triangle ABC\)</span>的面积之比为？</p>
+<p>$18. $ 在<span class="math inline">\(Rt\triangle
+ABC\)</span>中，斜边<span
+class="math inline">\(BC=a\)</span>，若长为<span
+class="math inline">\(2a\)</span>的线段<span
+class="math inline">\(PQ\)</span>以<span
+class="math inline">\(A\)</span>为中点，问<span
+class="math inline">\(\overrightarrow{PQ}\)</span>与<span
+class="math inline">\(\overrightarrow{BC}\)</span>的夹角<span
+class="math inline">\(\theta\)</span>取何值时，<span
+class="math inline">\(\overrightarrow{BP} \cdot
+\overrightarrow{CQ}\)</span>的值最大，并求出这个最大值。</p>
+<p>$19. $ 已知<span class="math inline">\(\triangle
+ABC\)</span>三内角满足<span
+class="math inline">\(2B=A+C\)</span>，求<span
+class="math inline">\(\sin^2 A + \sin^2 C\)</span>的取值范围。</p>
+<p>$20. $ 已知<span class="math inline">\(f(\theta) = \cos^2 \theta +
+\cos^2 (\theta + \alpha) + \cos^2 (\theta +
+\beta)\)</span>，是否存在满足<span class="math inline">\(0\le \alpha
+&lt; \beta &lt; \pi\)</span>的<span class="math inline">\(\alpha,
+\beta\)</span>使得<span
+class="math inline">\(f(\theta)\)</span>的取值不随<span
+class="math inline">\(\theta\)</span>的变化而变化，如果存在，求出<span
+class="math inline">\(\alpha,
+\beta\)</span>的值，若不存在，请说明理由。</p>
+<p>$21. $ 已知非零向量<span class="math inline">\(\vec a, \vec
+e\)</span>, 满足<span class="math inline">\(\vec a \ne \vec
+e\)</span>，且对任意的<span class="math inline">\(t \in
+\mathbb{R}\)</span>，有<span class="math inline">\(|\vec a - t \vec e|
+\ge |\vec a - \vec e|\)</span>，证明<span class="math inline">\(\vec e
+\perp (\vec a - \vec e)\)</span>。</p>
+<p>$22. $ 已知<span class="math inline">\(P\)</span>是<span
+class="math inline">\(\triangle ABC\)</span>内一点，且满足<span
+class="math inline">\(\overrightarrow {PA} + 2\overrightarrow {PB} +
+3\overrightarrow {PC} = \vec 0\)</span>，记<span
+class="math inline">\(\triangle ABP, \triangle BCP, \triangle
+CAP\)</span>的面积依次为<span
+class="math inline">\(S_1,S_2,S_3\)</span>，则<span
+class="math inline">\(S_1:S_2:S_3=?\)</span></p>
+<p>$23. $ <span class="math inline">\(\triangle
+ABC\)</span>内接于以点<span
+class="math inline">\(O\)</span>为圆心，<span
+class="math inline">\(1\)</span>为半径的圆，<span
+class="math inline">\(3 \overrightarrow{OA} + 4 \overrightarrow{OB} + 5
+\overrightarrow{OC} = 0\)</span>，求<br />
+（1）<span class="math inline">\(\overrightarrow{OA} \cdot
+\overrightarrow{OB}, \overrightarrow{OB}\cdot \overrightarrow{OC},
+\overrightarrow{OC} \cdot \overrightarrow{OA}\)</span>；<br />
+（2）三角形<span class="math inline">\(ABC\)</span>的面积。</p>
+<p>$24. $ 在四面体<span class="math inline">\(ABCD\)</span>中，如果<span
+class="math inline">\(AB \perp CD, DB \perp AC\)</span>，证明<span
+class="math inline">\(DA \perp BC\)</span>。</p>
+<p><img src="https://jsd.cdn.zzko.cn/gh/gamersover/hexo_blog_assets@main/数学试题2/xxx.5f9uqgn734o0.webp" width="28%"></p>
+<p>$25. $ 一条直线上有三点<span
+class="math inline">\(A,B,C\)</span>，点<span
+class="math inline">\(C\)</span>在<span
+class="math inline">\(A,B\)</span>之间，点<span
+class="math inline">\(P\)</span>是此直线外一点，设<span
+class="math inline">\(\angle APC=\alpha, \angle
+BPC=\beta\)</span>，证明<span class="math inline">\(\displaystyle
+\frac{\sin (\alpha + \beta)}{PC} = \frac{\sin \alpha}{PB} + \frac{\sin
+\beta}{PA}\)</span>。</p>
+<p>$26. $ 圆内接四边形<span
+class="math inline">\(ABCD\)</span>的边长分别为<span
+class="math inline">\(AB=2,BC=6,CD=DA=4\)</span>，求四边形的面积。</p>
+<p>$27. $
+一三角形的三边长为连续的正整数，且最大角是最小角的两倍，求该三角形的三边长。</p>
+<p>$28. $ 设空间中两个不同的向量<span class="math inline">\(\vec a =
+(x_1,y_1,0)\)</span>和<span class="math inline">\(\vec b =
+(x_2,y_2,0)\)</span>与向量<span class="math inline">\(\vec
+c=(1,1,1)\)</span>的夹角都为<span class="math inline">\(\displaystyle
+\frac{\pi}{4}\)</span>，求向量<span class="math inline">\(\vec
+a\)</span>与<span class="math inline">\(\vec b\)</span>的夹角。</p>
+<p>$29. $ 如图，<span
+class="math inline">\(\alpha-l-\beta\)</span>为<span
+class="math inline">\(60^\circ\)</span>的二面角，等腰直角三角形<span
+class="math inline">\(MPN\)</span>的直角顶点<span
+class="math inline">\(P\)</span>在<span
+class="math inline">\(l\)</span>上，<span class="math inline">\(M \in
+\alpha, N \in \beta\)</span>，且<span
+class="math inline">\(MP\)</span>与<span
+class="math inline">\(\beta\)</span>所成角等于<span
+class="math inline">\(NP\)</span>与<span
+class="math inline">\(\alpha\)</span>的成角，<br />
+证：（1）<span class="math inline">\(MN\)</span> 与 <span
+class="math inline">\(\alpha, \beta\)</span> 所成角相等；<br />
+（2）求<span class="math inline">\(MN\)</span>与<span
+class="math inline">\(\beta\)</span>所成角。</p>
+<p>$30. $ 已知数集<span class="math inline">\(A = \{a_1, a_2, \cdots,
+a_n\}(1 \le a_1 &lt; a_2 &lt; \cdots &lt; a_n,
+n&gt;=2)\)</span>具有性质<span
+class="math inline">\(P\)</span>，即对任意<span
+class="math inline">\(i,j(1 \le i \le j \le n)\)</span>，<span
+class="math inline">\(a_ia_j\)</span>和<span
+class="math inline">\(\displaystyle
+\frac{a_j}{a_i}\)</span>至少有一个属于<span
+class="math inline">\(A\)</span>，<br />
+证：（1）<span class="math inline">\(a=1, \displaystyle \frac{a_1 + a_2
++ \cdots + a_n}{a_1^{-1} + a_2^{-1} + \cdots + a_n^{-1}} =
+a_n\)</span>；<br />
+（2）当<span class="math inline">\(n=5\)</span>时，<span
+class="math inline">\(a_1, a_2, a_3, a_4, a_5\)</span>成等比数列。</p>
+<p>$31. $ 已知<span class="math inline">\(\vec i\)</span>和<span
+class="math inline">\(\vec j\)</span>分别是<span
+class="math inline">\(x,y\)</span>轴方向上的单位向量，<span
+class="math inline">\(\overrightarrow{OA_1} = \vec j,
+\overrightarrow{OA_2} = 10 \vec j, \overrightarrow{A_{n-1}A_n} = 3
+\overrightarrow{A_nA_{n+1}}(n=2,3,4,\cdots)\)</span>，在射线<span
+class="math inline">\(y=x(x \ge 0)\)</span>上，从下到上依次有点<span
+class="math inline">\(B_k(k=1,2,3,\cdots), \overrightarrow{OB_1} = 3
+\vec i + 3 \vec j\)</span>，且<span
+class="math inline">\(|\overrightarrow{B_{n-1}B_n}| = 2 \sqrt {2}
+(n=2,3,4,\cdots)\)</span>，<br />
+（1）求<span class="math inline">\(\overrightarrow{OA_n},
+\overrightarrow{OB_n}\)</span>；<br />
+（2）求四边形<span
+class="math inline">\(A_nA_{n+1}B_nB_{n+1}\)</span>面积的最大值。</p>
+<p>$32. $ 已知一簇椭圆<span class="math inline">\(\displaystyle C_n: x^2
++ \frac{y^2}{b_n^2} = 1, 0 &lt; b_n &lt; 1,
+n=1,2,\cdots\)</span>，若椭圆<span
+class="math inline">\(C_n\)</span>上有一点<span
+class="math inline">\(P_n\)</span>，使得<span
+class="math inline">\(P_n\)</span>到右准线<span
+class="math inline">\(l_n\)</span>的距离<span
+class="math inline">\(d_n\)</span>是<span
+class="math inline">\(|P_nF_n|\)</span>与<span
+class="math inline">\(|P_nG_n|\)</span>的等差中项，其中<span
+class="math inline">\(F_n, G_n\)</span>是<span
+class="math inline">\(C_n\)</span>的左右焦点；<br />
+（1）试证<span class="math inline">\(\displaystyle b_n \le \frac{\sqrt
+3}{2} (n \ge 1)\)</span><br />
+（2）取<span class="math inline">\(\displaystyle b_n = \frac{\sqrt {2n +
+3}}{n+2}\)</span>，并用<span class="math inline">\(S_n\)</span>表示<span
+class="math inline">\(\triangle P_nF_nG_n\)</span>的面积，试证<span
+class="math inline">\(S_1 &lt; S_2\)</span>，且<span
+class="math inline">\(S_n &gt; S_{n+1} (n \ge 3)\)</span></p>
+<p>$33. $ 已知抛物线<span class="math inline">\(C: y^2 =
+4x\)</span>，焦点<span class="math inline">\(F\)</span>，准线与<span
+class="math inline">\(x\)</span>轴交于点<span
+class="math inline">\(A\)</span>，过点<span
+class="math inline">\(A\)</span>且斜率为<span
+class="math inline">\(k\)</span>的直线<span
+class="math inline">\(l\)</span>与抛物线<span
+class="math inline">\(C\)</span>交于<span
+class="math inline">\(P,Q\)</span>两点；<br />
+（1）求满足<span class="math inline">\(\overrightarrow {FR} =
+\overrightarrow{FP} + \overrightarrow{FQ}\)</span>的点<span
+class="math inline">\(R\)</span>的轨迹方程；<br />
+（2）若<span class="math inline">\(\angle
+PFQ\)</span>为钝角，求直线<span
+class="math inline">\(l\)</span>的斜率<span
+class="math inline">\(k\)</span>的取值范围。</p>
+<p>$34. $ 设椭圆中心在坐标原点，<span class="math inline">\(A(2,0),
+B(0,1)\)</span>是它的两个顶点，直线<span class="math inline">\(y=kx
+(k&gt;0)\)</span>与<span class="math inline">\(AB\)</span>相交于点<span
+class="math inline">\(D\)</span>，与椭圆相交于<span
+class="math inline">\(E,F\)</span>两点，<br />
+（1）若<span class="math inline">\(\overrightarrow{ED} = 6
+\overrightarrow{DF}\)</span>，求<span
+class="math inline">\(k\)</span>的值；<br />
+（2）求四边形<span class="math inline">\(AEBF\)</span>面积的最大值。</p>
+<p>$35. $ 设<span class="math inline">\(A,B\)</span>是椭圆<span
+class="math inline">\(3x^2+y^2=\lambda\)</span>上的点，点<span
+class="math inline">\(N(1,3)\)</span>是<span
+class="math inline">\(AB\)</span>的中点，<span
+class="math inline">\(AB\)</span>的垂直平分线与椭圆相交于<span
+class="math inline">\(C,D\)</span>两点；<br />
+（1）确定<span
+class="math inline">\(\lambda\)</span>的取值范围，并求<span
+class="math inline">\(AB\)</span>的方程；<br />
+（2）试判断是否存在这样的<span
+class="math inline">\(\lambda\)</span>，使<span
+class="math inline">\(A,B,C,D\)</span>四点共圆。</p>
+<p>$36. $ 已知椭圆的焦点在<span
+class="math inline">\(x\)</span>轴上，以<span
+class="math inline">\(O\)</span>为中心；斜率为<span
+class="math inline">\(1\)</span>过椭圆右焦点<span
+class="math inline">\(F\)</span>的直线交椭圆于<span
+class="math inline">\(A,B\)</span>两点，<span
+class="math inline">\(\overrightarrow{OA}+\overrightarrow{OB}\)</span>与<span
+class="math inline">\(\vec a = (3, -1)\)</span>共线；<br />
+（1）求椭圆的离心率；<br />
+（2）设<span class="math inline">\(M\)</span>为椭圆上一点，且<span
+class="math inline">\(\overrightarrow{OM} = \lambda \overrightarrow{OA}
++ \mu \overrightarrow{OB}(\lambda, \mu \in
+\mathbb{R})\)</span>，求证<span class="math inline">\(\lambda^2 +
+\mu^2\)</span>为定值。</p>
+<p>$37. $ 已知椭圆<span class="math inline">\(\displaystyle
+\frac{x^2}{4} + \frac{y^2}{3} = 1\)</span>，直线<span
+class="math inline">\(y = kx + m\)</span>与椭圆相交于<span
+class="math inline">\(A,B\)</span>两点（<span
+class="math inline">\(A,B\)</span>不是左右顶点），且以<span
+class="math inline">\(AB\)</span>为直径的圆过椭圆的右顶点，求证直线过定点。</p>
+<p>$38. $ 圆<span class="math inline">\(x^2 + y^2 = 4\)</span>与<span
+class="math inline">\(y\)</span>轴的两个交点分别为<span
+class="math inline">\(A,B\)</span>，以<span
+class="math inline">\(A,B\)</span>为焦点，坐标为对称轴的双曲线与圆在<span
+class="math inline">\(y\)</span>轴左方的交点分别为<span
+class="math inline">\(C,D\)</span>，当梯形<span
+class="math inline">\(ABCD\)</span>的周长最大时，求双曲线的方程。</p>
+<p>$39. $ 过抛物线<span class="math inline">\(y^2 =
+2x\)</span>的顶点作互相垂直的两条弦<span
+class="math inline">\(OA,OB\)</span>，<br />
+（1）求<span class="math inline">\(AB\)</span>中点轨迹方程；<br />
+（2）证明<span class="math inline">\(AB\)</span>过定点。</p>
+<p>$40. $ 抛物线<span class="math inline">\(y^2 =
+2px(p&gt;0)\)</span>的焦点为<span
+class="math inline">\(F\)</span>，过<span
+class="math inline">\(F\)</span>的直线与抛物线交于<span
+class="math inline">\(A,B\)</span>两点，点<span
+class="math inline">\(C\)</span>在其准线上，且<span
+class="math inline">\(BC \parallel x\)</span>轴，求证直线<span
+class="math inline">\(AC\)</span>经过原点<span
+class="math inline">\(O\)</span>。</p>
+<p>$41. $ 二次函数<span class="math inline">\(f(x) = ax^2 + bx + c (a
+&lt; b)\)</span>的值域为<span class="math inline">\([0,
++\infty)\)</span>，则<span class="math inline">\(\displaystyle \frac{b -
+a}{a + b + c}\)</span>的最大值为？</p>
+<p>$42. $ 椭圆<span class="math inline">\(\displaystyle \frac{x^2}{3} +
+y^2 = 1\)</span>与直线<span class="math inline">\(y = kx + m (k \ne
+0)\)</span>相交于不同两点<span
+class="math inline">\(M,N\)</span>，已知<span
+class="math inline">\(A(0,-1)\)</span>，当<span
+class="math inline">\(|AM| = |AN|\)</span>时，<br />
+求证：（1）<span
+class="math inline">\(MN\)</span>的中点的纵坐标为定值。<br />
+（2）<span class="math inline">\(\displaystyle \frac{1}{2} &lt; m &lt;
+2\)</span>。</p>
+<p>$43. $ 边长为等差数列<span
+class="math inline">\(1,3,5,7,\cdots\)</span>的项一些等边三角形放置在同一条直线上，求证：它们的顶点在同一个抛物线上且各顶点到此抛物线的焦点的距离为整数。</p>
+<p>$44. $ 一个酒杯的轴截面为抛物线的一部分，它的方程为<span
+class="math inline">\(x^2 = 2y (0 \le y \le
+20)\)</span>，在杯内放一个玻璃球，要使球触及杯的底部，则玻璃球的半径<span
+class="math inline">\(r\)</span>的取值范围为？</p>
+<p>$45. $ 设抛物线<span class="math inline">\(y^2 = 2px
+(p&gt;0)\)</span>的轴和它的准线交于点<span
+class="math inline">\(E\)</span>，进过焦点<span
+class="math inline">\(F\)</span>的直线交抛物线于<span
+class="math inline">\(P,Q\)</span>两点（直线<span
+class="math inline">\(PQ\)</span>不与轴垂直），求证<span
+class="math inline">\(\angle FEP = \angle QEF\)</span>。</p>
+<p>$46. $ 抛物线<span class="math inline">\(y^2 = 2px
+(p&gt;0)\)</span>的动弦<span class="math inline">\(AB\)</span>长为<span
+class="math inline">\(a(a \ge 2p)\)</span>，则<span
+class="math inline">\(AB\)</span>的中点<span
+class="math inline">\(M\)</span>到<span
+class="math inline">\(y\)</span>轴的最短距离为？</p>
+<p>$47. $ 已知抛物线<span class="math inline">\(y^2 =
+8x\)</span>上的两个动点<span
+class="math inline">\(A,B\)</span>及一个定点<span
+class="math inline">\(M(x_0,y_0)\)</span>，<span
+class="math inline">\(F\)</span>是抛物线的焦点，且<span
+class="math inline">\(|AF|,|MF|,|BF|\)</span>构成等差数列，线段<span
+class="math inline">\(AB\)</span>的垂直平分线与<span
+class="math inline">\(x\)</span>轴交于一点<span
+class="math inline">\(N\)</span>，则<span
+class="math inline">\(N\)</span>的坐标为？（用<span
+class="math inline">\(x_0\)</span>表示）</p>
+<p>$48. $ 已知<span class="math inline">\(A(x_1,y_1), B(x_2,y_2) (x_1x_2
+\ne 0)\)</span>是抛物线<span class="math inline">\(y^2 = 2px
+(p&gt;0)\)</span>上的两个动点，<span
+class="math inline">\(O\)</span>是坐标原点，<span
+class="math inline">\(\overrightarrow{OA} \cdot \overrightarrow{OB} =
+0\)</span>，设圆<span class="math inline">\(C\)</span>的方程为<span
+class="math inline">\(x^2+y^2 - (x_1+x_2)x - (y_1+y_2)y =
+0\)</span>，<br />
+（1）求圆心<span class="math inline">\(C\)</span>的轨迹方程；<br />
+（2）当圆心<span class="math inline">\(C\)</span>到直线<span
+class="math inline">\(x - 2y = 0\)</span>的距离最小值为<span
+class="math inline">\(\displaystyle \frac{2\sqrt
+5}{5}\)</span>时，求抛物线的方程。</p>
+<p>$49. $ 已知动圆<span class="math inline">\(C\)</span>过定点<span
+class="math inline">\(\displaystyle (\frac{p}{2},
+0)\)</span>且与直线<span class="math inline">\(\displaystyle x = -
+\frac{p}{2}\)</span>相切，其中<span
+class="math inline">\(p&gt;0\)</span>，<br />
+（1）求圆<span class="math inline">\(C\)</span>的圆心轨迹方程；<br />
+（2）设<span class="math inline">\(A,B\)</span>是轨迹<span
+class="math inline">\(C\)</span>上异于原点<span
+class="math inline">\(O\)</span>的两个不同点，直线<span
+class="math inline">\(OA\)</span>和<span
+class="math inline">\(OB\)</span>的倾斜角分别是<span
+class="math inline">\(\alpha, \beta\)</span>，且<span
+class="math inline">\(\displaystyle \alpha + \beta =
+\frac{\pi}{4}\)</span>，证明直线<span
+class="math inline">\(AB\)</span>恒过定点。</p>
+<p>$50. $ 已知抛物线<span class="math inline">\(C: x^2 = 2py
+(p&gt;0)\)</span>上一点<span class="math inline">\(A(m,
+4)\)</span>到其焦点的距离为<span class="math inline">\(\displaystyle
+\frac{17}{4}\)</span>，<br />
+（1）求<span class="math inline">\(p,m\)</span>的值；<br />
+（2）设抛物线<span class="math inline">\(C\)</span>是一点<span
+class="math inline">\(P\)</span>的横坐标为<span
+class="math inline">\(t(t&gt;0)\)</span>，过<span
+class="math inline">\(P\)</span>的直线交抛物线于另一点<span
+class="math inline">\(Q\)</span>，交<span
+class="math inline">\(x\)</span>轴于点<span
+class="math inline">\(M\)</span>，过点<span
+class="math inline">\(Q\)</span>作<span
+class="math inline">\(QP\)</span>的垂线交抛物线<span
+class="math inline">\(C\)</span>于另一点<span
+class="math inline">\(N\)</span>，若<span
+class="math inline">\(MN\)</span>是抛物线的切线，求<span
+class="math inline">\(t\)</span>的最小值。</p>
+<p>$51. $ 已知抛物线<span class="math inline">\(y = x^2 -
+1\)</span>上一定点<span
+class="math inline">\(A(-1,0)\)</span>和两动点<span
+class="math inline">\(P,Q\)</span>，当<span class="math inline">\(PA
+\perp PQ\)</span>时，点<span
+class="math inline">\(Q\)</span>的横坐标的取值范围为？</p>
+<p>$52. $ 过抛物线<span class="math inline">\(y^2 =
+4x\)</span>的焦点作弦<span class="math inline">\(AB\)</span>，<span
+class="math inline">\(M\)</span>为<span
+class="math inline">\(AB\)</span>的中点，则<span
+class="math inline">\(M\)</span>到直线<span class="math inline">\(x-y =
+0\)</span>的最短距离为？</p>
+<p>$53. $ 抛物线<span class="math inline">\(x^2 = 2y\)</span>上距离<span
+class="math inline">\(A(0, a)(a &gt;
+0)\)</span>最近的点恰好是顶点，则<span
+class="math inline">\(a\)</span>的取值范围为？</p>
+<p>$54. $ 设抛物线的方程<span class="math inline">\(x^2 = 2py
+(p&gt;0)\)</span>，<span class="math inline">\(M\)</span>为直线<span
+class="math inline">\(y = -2p\)</span>上任意一点，过<span
+class="math inline">\(M\)</span>引抛物线的切线，切点分别为<span
+class="math inline">\(A,B\)</span>，<br />
+（1）求证<span
+class="math inline">\(A,M,B\)</span>三点的横坐标成等差数列；<br />
+（2）已知<span class="math inline">\(M(2, -2p)\)</span>时，<span
+class="math inline">\(|AB| = 4\sqrt
+{10}\)</span>，求抛物线的方程；<br />
+（3）是否存在点<span class="math inline">\(M\)</span>使得点<span
+class="math inline">\(C\)</span>关于直线<span
+class="math inline">\(AB\)</span>对称的点<span
+class="math inline">\(D\)</span>在抛物线上，其中点<span
+class="math inline">\(C\)</span>满足<span
+class="math inline">\(\overrightarrow{OC} = \overrightarrow{OA} +
+\overrightarrow{OB}\)</span>(<span
+class="math inline">\(O\)</span>为坐标原点)，若存在，求出所有符合题意的点<span
+class="math inline">\(M\)</span>的坐标；若不存在，请说明理由。</p>
+<p>$55. $ 已知<span class="math inline">\(P\)</span>是双曲线<span
+class="math inline">\(\displaystyle E: \frac{x^2}{a^2} - y^2 = 1
+(a&gt;0)\)</span>上的任意一点，<span
+class="math inline">\(F_1,F_2\)</span>分别是其左右焦点，过其中一焦点作<span
+class="math inline">\(\angle
+F_1PF_2\)</span>的内角平分线的垂线，垂足为<span
+class="math inline">\(M\)</span>，点<span
+class="math inline">\(M\)</span>的轨迹范围曲线<span
+class="math inline">\(C\)</span>，求曲线<span
+class="math inline">\(C\)</span>的方程。</p>
+<p>$56. $ 已知椭圆<span class="math inline">\(\displaystyle
+\frac{x^2}{a^2} + \frac{y^2}{b^2} (a&gt;b&gt;0)\)</span>，<span
+class="math inline">\(F_1,F_2\)</span>分别是左右焦点，若椭圆上存在点<span
+class="math inline">\(P\)</span>，使得<span class="math inline">\(\angle
+F_1PF_2 = 90^\circ\)</span>，求椭圆离心率<span
+class="math inline">\(e\)</span>的取值范围。</p>
+<p>$57. $ 已知双曲线<span class="math inline">\(\displaystyle
+\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1
+(a&gt;0,b&gt;0)\)</span>的左右焦点分别为<span
+class="math inline">\(F_1,F_2\)</span>，若双曲线上存在点<span
+class="math inline">\(P\)</span>使得<span
+class="math inline">\(\displaystyle \frac{\sin \angle PF_1F_2}{\sin
+\angle PF_2F_1} = \frac{a}{c}\)</span>，则双曲线的离心率<span
+class="math inline">\(e\)</span>的取值范围为？</p>
+<p>$58. $ 已知椭圆<span class="math inline">\(\displaystyle
+\frac{x^2}{a^2} + \frac{y^2}{b^2} (a&gt;b&gt;0)\)</span>的左右焦点<span
+class="math inline">\(F_1F_2\)</span>，离心率<span
+class="math inline">\(\displaystyle e = \frac{\sqrt
+2}{2}\)</span>，右准线方程为<span class="math inline">\(x =
+2\)</span>，<br />
+（1）求该椭圆的标准方程；<br />
+（2）过点<span class="math inline">\(F_1\)</span>的直线<span
+class="math inline">\(l\)</span>与该椭圆交于<span
+class="math inline">\(M,N\)</span>两点，且<span
+class="math inline">\(\displaystyle |\overrightarrow{F_2M} +
+\overrightarrow{F_2N}| = \frac{2\sqrt {26}}{3}\)</span>，求直线<span
+class="math inline">\(l\)</span>的方程。</p>
+<p>$59. $ 已知双曲线<span class="math inline">\(\displaystyle
+\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1
+(a&gt;0,b&gt;0)\)</span>的两个焦点分别为<span
+class="math inline">\(F_1,F_2\)</span>，<span
+class="math inline">\(P\)</span>是渐近线一点，且<span
+class="math inline">\(PF_1 \perp PF_2, |PF_1|\cdot |PF_2| =
+6ab\)</span>，则双曲线的离心率为？</p>
+<p>$60. $ 已知<span class="math inline">\(AB\)</span>是过抛物线<span
+class="math inline">\(y^2 = 2px (p&gt;0)\)</span>的焦点<span
+class="math inline">\(F\)</span>的弦，<span
+class="math inline">\(M\)</span>是<span
+class="math inline">\(AB\)</span>的中点，<span
+class="math inline">\(l\)</span>是抛物线的准线，<span
+class="math inline">\(AC \perp l, BD \perp l, MN \perp l\)</span>，<span
+class="math inline">\(C,D,N\)</span>是垂足，则<span
+class="math inline">\((1) CF \perp DF, (2) CM \perp DM, (3) AN \perp BN,
+(4) NF \perp AB\)</span>中正确的有哪些？并证明。</p>
+<p>$61. $ 设直线<span class="math inline">\(l: x = my + n (m \ne
+0)\)</span>交椭圆<span class="math inline">\(\displaystyle C:
+\frac{x^2}{4} + y^2 = 1\)</span>于<span
+class="math inline">\(A,B\)</span>两点<br />
+且坐标原点到直线<span class="math inline">\(l\)</span>的距离为<span
+class="math inline">\(1\)</span>；<br />
+（1）求<span class="math inline">\(|AB|\)</span>的最大值；<br />
+（2）当<span class="math inline">\(|AB|\)</span>取最大值时，直线<span
+class="math inline">\(l\)</span>是否过椭圆的一个焦点？</p>
+<p>$62. $ 椭圆<span class="math inline">\(\displaystyle \frac{x^2}{a^2}
++ \frac{y^2}{b^2} = 1 (a &gt; b &gt;0)\)</span>上的点<span
+class="math inline">\(M\)</span>与椭圆右焦点<span
+class="math inline">\(F_1\)</span>的连线<span
+class="math inline">\(MF_1\)</span>与<span
+class="math inline">\(x\)</span>轴垂直，且<span
+class="math inline">\(OM\)</span>(<span
+class="math inline">\(O\)</span>是坐标原点)与椭圆长轴和短轴端点的连线<span
+class="math inline">\(AB\)</span>平行；<br />
+（1）求椭圆的离心率；<br />
+（2）<span class="math inline">\(F_2\)</span>是椭圆的左焦点，<span
+class="math inline">\(C\)</span>是椭圆上任意一点，证明<span
+class="math inline">\(\displaystyle \angle F_1CF_2 \le
+\frac{\pi}{2}\)</span>；<br />
+（3）过<span class="math inline">\(F_1\)</span>且与<span
+class="math inline">\(AB\)</span>垂直的直线交椭圆于<span
+class="math inline">\(P,Q\)</span>两点，若<span
+class="math inline">\(\triangle PF_2Q\)</span>的面积为<span
+class="math inline">\(20\sqrt 3\)</span>，求此时椭圆的方程。</p>
+<p>$63. $ 已知函数<span class="math inline">\(f(x) = x^3 + \sin x (x \in
+[-\pi, \pi])\)</span>的最小值<span
+class="math inline">\(M\)</span>，则<span
+class="math inline">\(f(x)\)</span>的最大值为？</p>
+<p>$64. $ 非零向量<span class="math inline">\(\overrightarrow{OA} = \vec
+a, \overrightarrow{OB} = \vec b\)</span>，若点<span
+class="math inline">\(B\)</span>关于<span
+class="math inline">\(\overrightarrow{OA}\)</span>所在直线对称点为<span
+class="math inline">\(B_1\)</span>，则向量<span
+class="math inline">\(\overrightarrow{OB} +
+\overrightarrow{OB_1}\)</span>为？</p>
+<p>$65. $ 已知向量<span class="math inline">\(\displaystyle \vec a =
+(\lambda + 2, \lambda^2 - \cos^2 \theta), \vec b = (m, \frac{m}{2}+\sin
+\theta)\)</span>（其中<span class="math inline">\(\lambda, m, \theta \in
+\mathbb{R}\)</span>），且<span class="math inline">\(\vec a = 2 \vec
+b\)</span>，求<span class="math inline">\(\displaystyle
+\frac{\lambda}{m}\)</span>的取值范围。</p>
+<p>$66. $ 求函数<span class="math inline">\(\displaystyle f(x) =
+\frac{\sin x + \cos x}{1 + \sin x + \cos x}\)</span>的最大和最小值。</p>
+<p>$67. $ <span class="math inline">\(O\)</span>为<span
+class="math inline">\(\triangle ABC\)</span>的外心，<span
+class="math inline">\(H\)</span>为<span class="math inline">\(\triangle
+ABC\)</span>的垂心，求证<span class="math inline">\(\overrightarrow{OH}
+= \overrightarrow{OA} + \overrightarrow{OB} +
+\overrightarrow{OC}\)</span>。</p>
+<p>$68. $ <span class="math inline">\(O\)</span>是<span
+class="math inline">\(\triangle ABC\)</span>内一点且<span
+class="math inline">\(\overrightarrow{OA} + 2 \overrightarrow{OB} + 2
+\overrightarrow{OC} = \vec 0\)</span>，则<span
+class="math inline">\(\triangle ABC\)</span>的面积与凹四边形<span
+class="math inline">\(ABCD\)</span>的面积之比为？</p>
+<p>$69. $ 设<span
+class="math inline">\(A_1,A_2,\cdots,A_n\)</span>是单位圆上任意<span
+class="math inline">\(n\)</span>个点，求证在该圆上至少可以找打一个点<span
+class="math inline">\(M\)</span>，使<span
+class="math inline">\(|\overrightarrow{MA_1} + \overrightarrow{MA_2} +
+\cdots + \overrightarrow{MA_n}| \ge n\)</span>。</p>
+<p>$70. $ <span class="math inline">\(O\)</span>为平面上一点，<span
+class="math inline">\(P,Q,R\)</span>是平面上不共线的三点，动点<span
+class="math inline">\(M\)</span>点满足<span
+class="math inline">\(\displaystyle \overrightarrow{OM} =
+\overrightarrow{OP} + k \left(
+\frac{\overrightarrow{PQ}}{|\overrightarrow{PQ}|} +
+\frac{\overrightarrow{PR}}{|\overrightarrow{PR}|} \right), k \in [0,
++\infty)\)</span>，则<span
+class="math inline">\(M\)</span>的轨迹一定通过<span
+class="math inline">\(\triangle PQR\)</span>的__心？（内 外 垂 重）</p>
+<p>$71. $ 已知<span class="math inline">\(H\)</span>是面积为<span
+class="math inline">\(2\)</span>的<span class="math inline">\(\triangle
+ABC\)</span>的重心，并且<span class="math inline">\(\overrightarrow{BH}
+\cdot \overrightarrow{BC} = 4\)</span>，求<span
+class="math inline">\(\angle ABC\)</span>。</p>
+<p>$72. $ 点<span class="math inline">\(P\)</span>是<span
+class="math inline">\(\triangle ABC\)</span>内一点，且<span
+class="math inline">\(\overrightarrow{PA} + 2 \overrightarrow{PB} +
+3\overrightarrow{PC} = \vec 0\)</span>，则<span
+class="math inline">\(\triangle ABC\)</span>与<span
+class="math inline">\(\triangle APC\)</span>的面积之比为？</p>
+<p>$73. $ 在<span class="math inline">\(\triangle ABC\)</span>中，<span
+class="math inline">\(O\)</span>为中线<span
+class="math inline">\(AM\)</span>上一动点，若<span
+class="math inline">\(AM = 2\)</span>，则<span
+class="math inline">\(\overrightarrow{OA} \cdot (\overrightarrow{OB} +
+\overrightarrow{OC})\)</span>的最小值为？</p>
+<p>$74. $ 已知<span class="math inline">\(\displaystyle \sin \alpha +
+\sin \beta = \frac{\sqrt 2}{2}\)</span>，求<span
+class="math inline">\(\cos \alpha + \cos \beta\)</span>的取值范围。</p>
+<p>$75. $ 求<span class="math inline">\((1+\tan 1^\circ)(1+\tan
+2^\circ)(1 + \tan 3^\circ)\cdots(1 + \tan 45^\circ)\)</span>的值。</p>
+<p>$76. $ 已知<span class="math inline">\(\sin (\alpha + 2\beta) = 2
+\sin \alpha\)</span>，求<span class="math inline">\(\displaystyle
+\frac{\tan (\alpha + \beta)}{\tan \beta}\)</span>的值。</p>
+<p>$77. $ 对任意的锐角<span class="math inline">\(\alpha,
+\beta\)</span>，下列命题中正确的有？<br />
+（1）<span class="math inline">\(\sin (\alpha + \beta) &gt; \sin \alpha
++ \sin \beta\)</span>；<br />
+（2）<span class="math inline">\(\sin (\alpha + \beta) &gt; \cos \alpha
++ \cos \beta\)</span>；<br />
+（3）<span class="math inline">\(\cos (\alpha + \beta) &gt; \sin \alpha
++ \sin \beta\)</span>；<br />
+（4）<span class="math inline">\(\cos (\alpha + \beta) &gt; \cos \alpha
++ \cos \beta\)</span>。</p>
+<p>$78. $ 已知<span class="math inline">\(\displaystyle \sin \alpha \cos
+\beta = \frac{1}{2}\)</span>，则<span class="math inline">\(\cos \alpha
+\sin \beta\)</span>的取值范围是？</p>
+<p>$79. $ 已知<span class="math inline">\(5 \sin 2\alpha = \sin
+2^\circ\)</span>，求<span class="math inline">\(\displaystyle \frac{\tan
+(\alpha + 1^\circ)}{\tan (\alpha - 1^\circ)}\)</span>。</p>
+<p>$80. $ 求<span class="math inline">\(\cos 20^\circ cos 40^\circ \cos
+60^\circ \cos 80^\circ\)</span>。</p>
+<p>$81. $ 求（1）<span class="math inline">\(\displaystyle \cos
+\frac{\pi}{11} \cos \frac{2\pi}{11} \cos \frac{3\pi}{11} \cos
+\frac{4\pi}{11} \cos \frac{5\pi}{11}\)</span>；<br />
+（2）<span class="math inline">\(\displaystyle \cos^4 \frac{\pi}{8} +
+\cos^4 \frac{3\pi}{8} + \cos^4 \frac{5\pi}{8} + \cos^4
+\frac{7\pi}{8}\)</span>；<br />
+（3）<span class="math inline">\(\displaystyle \cos \frac{2\pi}{7} +
+\cos \frac{4\pi}{7} + \cos \frac{6\pi}{7}\)</span>。</p>
+<p>$82. $ 求<span class="math inline">\(\cos^2 36^\circ + \sin^2
+18^\circ\)</span>的值。</p>
+<p>$83. $ 试问是否存在同时满足下列条件的非零向量<span
+class="math inline">\(\vec a, \vec b\)</span>，<br />
+（1）<span class="math inline">\(|\vec a| &gt; |\vec b|\)</span>；<br />
+（2）<span class="math inline">\(\vec a\)</span>与<span
+class="math inline">\(\vec b\)</span>不垂直；<br />
+（3）<span class="math inline">\(|\vec a + \vec b| = |\vec a - \lambda
+\vec b|\)</span>，其中<span
+class="math inline">\(\lambda\)</span>为确定的整数。<br />
+若存在，试给出<span class="math inline">\(\vec a\)</span>和<span
+class="math inline">\(\vec
+b\)</span>所满足的条件，若不存在，则说明理由。</p>
+<p>$84. $ 已知<span class="math inline">\(A,B,C\)</span>是<span
+class="math inline">\(\triangle ABC\)</span>的三个内角，<span
+class="math inline">\(\displaystyle y = \tan \frac{A}{2} + \frac{2 \cos
+\frac{A}{2}}{\sin \frac{A}{2} + \cos
+\frac{B-C}{2}}\)</span>，若任意交换两个角的位置<span
+class="math inline">\(y\)</span>的值是否变化？</p>
+<p>$85. $ 已知<span class="math inline">\(\log_2 \sin 2x = \sin 2
+\theta\)</span>，求证<span class="math inline">\(\displaystyle \log_2
+(\tan x + \cos x) = 2 \cos^2 (\frac{\pi}{4} + \theta)\)</span>。</p>
+<p>$86. $ 已知<span class="math inline">\(0 &lt; \alpha &lt;
+\pi\)</span>，证明<span class="math inline">\(\displaystyle 2 \sin
+2\alpha \le \cot \frac{\alpha}{2}\)</span>，并讨论<span
+class="math inline">\(\alpha\)</span>为何值时，等号成立。</p>
+<p>$87. $ 已知<span class="math inline">\(\displaystyle \frac{1 + \tan
+\alpha}{1 - \tan \alpha} = 5 + 2 \sqrt 6\)</span>，求<span
+class="math inline">\(\displaystyle \frac{1 - \sin 2 \alpha}{\cos 2
+\alpha}\)</span>。</p>
+<p>$88. $ 求<span class="math inline">\(\displaystyle \sin^4
+\frac{\pi}{16} + \sin^4 \frac{3\pi}{16} + \sin^4 \frac{5\pi}{16} +
+\sin^4 \frac{7\pi}{16}\)</span>。</p>
+<p>$89. $ 求<span class="math inline">\(\sin^2 10^\circ + \cos^2
+40^\circ + \sin 10^\circ \cos 40^\circ\)</span>。</p>
+<p>$90. $ 设<span
+class="math inline">\(\alpha\)</span>是第四象限角，若<span
+class="math inline">\(\displaystyle \frac{\sin 3\alpha}{\sin \alpha} =
+\frac{13}{5}\)</span>，则<span class="math inline">\(\tan
+2\alpha=\)</span>？</p>
+<p>$91. $ 已知<span class="math inline">\(\tan^2 x + \cot^2 x =
+4\)</span>，则<span class="math inline">\(\displaystyle \frac{3 + \cos
+4x}{1 - \cos 4x}=\)</span>?</p>
+<p>$92. $ 求<span class="math inline">\(\displaystyle \frac{\sqrt 3 \tan
+12^\circ - 3}{(4\cos^2 12^\circ - 2)\sin 12^\circ}\)</span>。</p>
+<p>$93. $ 在<span class="math inline">\(\triangle ABC\)</span>中，<span
+class="math inline">\(a,b, c\)</span>分别是角<span
+class="math inline">\(A,B,C\)</span>的对边，<span
+class="math inline">\(\displaystyle a^2 - c^2 = b^2 - \frac{8}{5}bc, a =
+3, S_{\triangle ABC} = 6\)</span>，若<span
+class="math inline">\(\triangle ABC\)</span>内任一点<span
+class="math inline">\(D\)</span>到三边距离之和为<span
+class="math inline">\(d\)</span>，求<span
+class="math inline">\(d\)</span>的取值范围。</p>
+<p>$94. $ <span class="math inline">\(f(x) = \sin x + \tan
+x\)</span>，项数为<span class="math inline">\(27\)</span>的等差数列<span
+class="math inline">\(\{a_n\}\)</span>满足<span
+class="math inline">\(\displaystyle a_n \in (-\frac{\pi}{2},
+\frac{\pi}{2})\)</span>且公差<span class="math inline">\(d \ne
+0\)</span>，若<span class="math inline">\(f(a_1) + f(a_2) + \cdots +
+f(a_{27}) = 0\)</span>，则当<span
+class="math inline">\(k\)</span>为多少时，<span
+class="math inline">\(f(a_k) = 0\)</span>。</p>
+<p>$95. $ 设函数<span class="math inline">\(f(x) = x - x \ln
+x\)</span>，数列<span class="math inline">\(\{a_n\}\)</span>满足<span
+class="math inline">\(0 &lt; a_1 &lt; 1, a_{n+1} =
+f(a_n)\)</span>；<br />
+证明：（1）函数<span class="math inline">\(f(x)\)</span>在区间<span
+class="math inline">\((0,1)\)</span>上是增函数；<br />
+（2）<span class="math inline">\(0 &lt; a_n &lt; a_{n+1} &lt;
+1\)</span>。</p>
+<p>$97. $ 已知<span class="math inline">\(Rt\triangle ABC\)</span>中,
+<span class="math inline">\(\angle A = 90^\circ, AB = 1,
+BC=2\)</span>，<span class="math inline">\(D\)</span>为<span
+class="math inline">\(BC\)</span>的中点，将<span
+class="math inline">\(\triangle ABD\)</span>沿<span
+class="math inline">\(AD\)</span>折起，使点<span
+class="math inline">\(B\)</span>在面<span
+class="math inline">\(ADC\)</span>所在平面的投影<span
+class="math inline">\(E\)</span>在<span
+class="math inline">\(AC\)</span>上；<br />
+（1）求证：<span class="math inline">\(CD \perp\)</span>平面<span
+class="math inline">\(BDE\)</span>；<br />
+（2）求二面角<span class="math inline">\(B-AD-C\)</span>的余弦值；<br />
+（3）求<span class="math inline">\(AB\)</span>与平面<span
+class="math inline">\(BDE\)</span>所成的角。</p>
+<p>$98. $ 设<span
+class="math inline">\(A,B,C,D\)</span>是空间不共面四点，<span
+class="math inline">\(AB \perp AC, AD \perp AC, AB \perp
+AD\)</span>，则<span class="math inline">\(\triangle
+BCD\)</span>是__三角形。（锐角，直角，钝角）</p>
+<p>$99. $ 在平面直角坐标系<span
+class="math inline">\(xOy\)</span>中，过双曲线<span
+class="math inline">\(\displaystyle \frac{x^2}{a^2} - \frac{y^2}{b^2} =
+1(a&gt;0, b&gt;0)\)</span>的左焦点<span
+class="math inline">\(F\)</span>作圆<span class="math inline">\(x^2 +
+y^2 = a^2\)</span>的一条切线（切点为<span
+class="math inline">\(T\)</span>），交双曲线的右支于点<span
+class="math inline">\(P\)</span>，若<span
+class="math inline">\(M\)</span>为<span
+class="math inline">\(FP\)</span>的中点，则<span
+class="math inline">\(|OM| - |MT|=\)</span>（用<span
+class="math inline">\(a,b\)</span>）表示。</p>
+<p>$100. $ 在数列<span class="math inline">\(\{a_n\}\)</span>中，<span
+class="math inline">\(a_1 = 0, a_2 = 6\)</span>，且<span
+class="math inline">\(a_{n+2} = 5a_{n+1} - 6 a_n\)</span>；<br />
+（1）求<span class="math inline">\(\{a_n\}\)</span>的通项公式；<br />
+（2）设<span class="math inline">\(m\)</span>是一个正数，无论<span
+class="math inline">\(m\)</span>为何值时，是否都有一个正整数<span
+class="math inline">\(n\)</span>，使<span
+class="math inline">\(\displaystyle \left|\frac{a_{n_1}}{a_b} - 3
+\right| &lt; m\)</span>恒成立。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/02/20/数学试题1/" rel="bookmark">数学试题一：初中篇</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2022/02/22/数学试题/" rel="bookmark">数学试题：自创篇</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2022/04/26/数学试题4/" rel="bookmark">数学试题四：高中篇3</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2022/03/04/数学试题3/" rel="bookmark">数学试题三：高中篇2</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2022/06/10/数学试题5/" rel="bookmark">数学试题五：高中篇4</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E8%AF%95%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> 数学试题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/17/pandasecharts%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B/" rel="prev" title="pandasecharts使用示例">
+      <i class="fa fa-chevron-left"></i> pandasecharts使用示例
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/17/%E8%AF%97%E7%AF%87%EF%BC%9A%E6%83%85%E6%9C%89%E6%84%9F/" rel="next" title="诗篇：情有感">
+      诗篇：情有感 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈华杰"
+      src="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+  <p class="site-author-name" itemprop="name">陈华杰</p>
+  <div class="site-description" itemprop="description">为天地立心，为生民立命，为往圣继绝学，为万世开太平</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gamersover" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gamersover" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈华杰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">500k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:34</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2b5e8584032528a65176',
+      clientSecret: '4a98c67c6337be0cd82b30d04699a4dcef47307c',
+      repo        : 'gamersover.github.io',
+      owner       : 'gamersover',
+      admin       : ['gamersover'],
+      id          : 'e3870e8d8428b03f73a65923a3005f02',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

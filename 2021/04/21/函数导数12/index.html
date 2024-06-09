@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_logo_custom32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_logo_custom16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-rqJrmmkVwO">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+  </script>
+
+  <meta name="description" content="定义1  设函数\(f\)在开集\(D\)上的每一点处存在偏导数： \[     D_if(\boldsymbol{x}) &#x3D; \frac{\partial f}{\partial x_i}(\boldsymbol{x}) \quad (i&#x3D;1,2,\cdots,n) \] 称它们为\(f\)的一阶偏导函数，如果对这些偏导函数又可以取偏导数，得出的就是\(f\)的二阶偏导函数，依次可以定义三阶偏导">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数导数十二：高阶偏导数和Taylor公式">
+<meta property="og:url" content="http://yoursite.com/2021/04/21/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B012/index.html">
+<meta property="og:site_name" content="尘雨尘风">
+<meta property="og:description" content="定义1  设函数\(f\)在开集\(D\)上的每一点处存在偏导数： \[     D_if(\boldsymbol{x}) &#x3D; \frac{\partial f}{\partial x_i}(\boldsymbol{x}) \quad (i&#x3D;1,2,\cdots,n) \] 称它们为\(f\)的一阶偏导函数，如果对这些偏导函数又可以取偏导数，得出的就是\(f\)的二阶偏导函数，依次可以定义三阶偏导">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-21T12:36:33.000Z">
+<meta property="article:modified_time" content="2021-04-21T12:36:33.000Z">
+<meta property="article:author" content="陈华杰">
+<meta property="article:tag" content="数学分析">
+<meta property="article:tag" content="函数导数">
+<meta property="article:tag" content="微分">
+<meta property="article:tag" content="Taylor定理">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/21/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B012/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>函数导数十二：高阶偏导数和Taylor公式 | 尘雨尘风</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">尘雨尘风</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">数学与编程的爱好者</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">86</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">162</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/21/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B012/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          函数导数十二：高阶偏导数和Taylor公式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-21 20:36:33" itemprop="dateCreated datePublished" datetime="2021-04-21T20:36:33+08:00">2021-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="定义1">定义1</h4>
+<blockquote>
+<p>设函数<span class="math inline">\(f\)</span>在开集<span
+class="math inline">\(D\)</span>上的每一点处存在偏导数：<br />
+<span class="math display">\[
+    D_if(\boldsymbol{x}) = \frac{\partial f}{\partial
+x_i}(\boldsymbol{x}) \quad (i=1,2,\cdots,n)
+\]</span><br />
+称它们为<span
+class="math inline">\(f\)</span>的一阶偏导函数，如果对这些偏导函数又可以取偏导数，得出的就是<span
+class="math inline">\(f\)</span>的二阶偏导函数，依次可以定义三阶偏导数以及更高阶的偏导数。对于二阶偏导数，将一阶偏导函数<span
+class="math inline">\(\displaystyle \frac{\partial f}{\partial
+x_j}\)</span>再对<span
+class="math inline">\(x_i\)</span>求偏导数，即<span
+class="math inline">\(\displaystyle \frac{\partial f}{\partial
+x_i}\left(\frac{\partial f}{\partial x_j}\right)\)</span>记作<span
+class="math inline">\(\displaystyle \frac{\partial^2 f}{\partial x_i
+\partial x_j}\)</span>，这里<span
+class="math inline">\(i,j\)</span>独立地从<span
+class="math inline">\(1\)</span>变到<span
+class="math inline">\(n\)</span>，如果<span
+class="math inline">\(i=j\)</span>，那么把<span
+class="math inline">\(\displaystyle \frac{\partial^2 f}{\partial x_i
+\partial x_i}\)</span>记作<span class="math inline">\(\displaystyle
+\frac{\partial^2 f}{\partial x_i^2}(i=1,2,\cdots,n)\)</span>；如果<span
+class="math inline">\(i\ne
+j\)</span>，这类二阶偏导数称为混合偏导数。</p>
+</blockquote>
+<span id="more"></span>
+<h4 id="定理1">定理1</h4>
+<blockquote>
+<p>设开集<span class="math inline">\(D \subset
+\mathbb{R}^2\)</span>，<span class="math inline">\(f: D \to
+\mathbb{R}\)</span>，如果<span class="math inline">\(\displaystyle
+\frac{\partial f}{\partial x},\frac{\partial f}{\partial
+y},\frac{\partial^2 f}{\partial y \partial x}\)</span>在<span
+class="math inline">\((x_0,y_0)\)</span>的某个邻域上存在，且<span
+class="math inline">\(\displaystyle \frac{\partial^2 f}{\partial
+y\partial x}\)</span>在<span
+class="math inline">\((x_0,y_0)\)</span>处连续，那么<span
+class="math inline">\(\displaystyle \frac{\partial^2 f}{\partial x
+\partial y}\)</span>在<span
+class="math inline">\((x_0,y_0)\)</span>处存在，而且<br />
+<span class="math display">\[
+    \frac{\partial^2 f}{\partial x \partial y} = \frac{\partial^2
+f}{\partial y \partial x}
+\]</span></p>
+</blockquote>
+<p>证：记<br />
+<span class="math display">\[
+    \varphi(h, k) = f(x_0 + h, y_0 + k) - f(x_0+h, y_0) - f(x_0, y_0+k)
++ f(x_0, y_0)
+\]</span><br />
+令<br />
+<span class="math display">\[
+    g(x) = f(x, y_0+k) - f(x, y_0)
+\]</span><br />
+从而由微分中值定理可知<br />
+<span class="math display">\[
+    \begin{aligned}
+    \varphi(h, k) &amp; = g(x_0 + h) - g(x_0) \\
+    &amp; = g^\prime(x_0 + \theta_1 h)h \\
+    &amp; = \left(\frac{\partial f}{\partial x}(x_0 + \theta_1 h, y_0 +
+k) - \frac{\partial f}{\partial x}(x_0 + \theta_1 h, y_0) \right)h \\
+    &amp; = \frac{\partial^2 f}{\partial y \partial x}(x_0 + \theta_1h,
+y_0 + \theta_2k)hk
+    \end{aligned}
+\]</span><br />
+由于<span class="math inline">\(\displaystyle \frac{\partial^2
+f}{\partial y \partial x}\)</span>在<span class="math inline">\((x_0,
+y_0)\)</span>处连续，从而有<br />
+<span class="math display">\[
+    \lim \limits_{h\to 0, k \to 0} \frac{\varphi(h ,k)}{hk} =
+\frac{\partial^2 f}{\partial y \partial x}(x_0, y_0)
+\]</span><br />
+而又有<br />
+<span class="math display">\[
+    \lim \limits_{k \to 0} \frac{\varphi(h ,k)}{hk} = \lim \limits_{k
+\to 0} \frac{1}{h} \left( \frac{f(x_0+h, y_0+k) - f(x_0+h, y_0)}{k} -
+\frac{f(x_0, y_0+k) - f(x_0, y_0)}{k}\right) = \frac{1}{h}\left(
+\frac{\partial f}{\partial y}(x_0 +h, y_0) - \frac{\partial f}{\partial
+y}(x_0, y_0)\right)
+\]</span><br />
+所以<br />
+<span class="math display">\[
+    \lim \limits_{h \to 0, k \to 0} \frac{\varphi(h ,k)}{hk} = \lim
+\limits_{h \to 0} \frac{1}{h}\left( \frac{\partial f}{\partial y}(x_0
++h, y_0) - \frac{\partial f}{\partial y}(x_0, y_0)\right) =
+\frac{\partial^2 f}{\partial x \partial y}(x_0, y_0)
+\]</span><br />
+所以<span class="math inline">\(\displaystyle \frac{\partial^2
+f}{\partial x \partial y}(x_0, y_0)\)</span>存在，而且<br />
+<span class="math display">\[
+    \frac{\partial^2 f}{\partial x \partial y}(x_0, y_0) =
+\frac{\partial^2 f}{\partial y \partial x}(x_0, y_0)
+\]</span></p>
+<p>Q.E.D.</p>
+<h4 id="定理2">定理2</h4>
+<blockquote>
+<p>设定义在凸区域<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>上的函数<span
+class="math inline">\(f\)</span>可微，则对任何两点<span
+class="math inline">\(\boldsymbol{a}, \boldsymbol{b} \in
+D\)</span>，在由<span
+class="math inline">\(\boldsymbol{a},\boldsymbol{b}\)</span>确定的线段上存在一点<span
+class="math inline">\(\boldsymbol{\xi}\)</span>，使得<br />
+<span class="math display">\[
+    f(\boldsymbol{b}) - f(\boldsymbol{a}) =
+Jf(\boldsymbol{\xi})(\boldsymbol{b} - \boldsymbol{a})
+\]</span></p>
+</blockquote>
+<p>证：由<span class="math inline">\(\boldsymbol{a}\)</span>与<span
+class="math inline">\(\boldsymbol{b}\)</span>确定的线段上的点可表示为<span
+class="math inline">\(\boldsymbol{a} + t(\boldsymbol{b} -
+\boldsymbol{a})\)</span>，这里<span class="math inline">\(t \in [0,
+1]\)</span>，令<br />
+<span class="math display">\[
+    \varphi(t) = f(\boldsymbol{a} + t(\boldsymbol{b} - \boldsymbol{a}))
+\]</span><br />
+那么<span class="math inline">\(\varphi\)</span>是<span
+class="math inline">\([0,
+1]\)</span>上的可微函数，由单变量的微分中值定理可知，存在<span
+class="math inline">\(\theta \in (0,1)\)</span>，使得<br />
+<span class="math display">\[
+    \varphi(1) - \varphi(0) = \varphi^\prime(\theta)
+\]</span><br />
+即<br />
+<span class="math display">\[
+    f(\boldsymbol{b}) - f(\boldsymbol{a}) =
+\boldsymbol{J}f(\boldsymbol{a} + \theta (\boldsymbol{b} -
+\boldsymbol{a}))(\boldsymbol{b} - \boldsymbol{a})
+\]</span><br />
+再令<span class="math inline">\(\boldsymbol{\xi} = \boldsymbol{a} +
+\theta(\boldsymbol{b} - \boldsymbol{a})\)</span>即证得结论。</p>
+<p>Q.E.D.</p>
+<h4 id="定理3">定理3</h4>
+<blockquote>
+<p>设<span class="math inline">\(D\)</span>是<span
+class="math inline">\(\mathbb{R}^n\)</span>中的区域，如果对任意的<span
+class="math inline">\(\boldsymbol{x} \in D\)</span>，有<br />
+<span class="math display">\[
+    \frac{\partial f}{\partial x_1}(\boldsymbol{x}) = \cdots =
+\frac{\partial f}{\partial x_n}(\boldsymbol{x}) = 0
+\]</span><br />
+那么<span class="math inline">\(f\)</span>在<span
+class="math inline">\(D\)</span>上为一个常数。</p>
+</blockquote>
+<p>证：如果<span class="math inline">\(D\)</span>是凸区域，则由<a
+href="#定理1">定理1</a>立即得出结论。如果<span
+class="math inline">\(D\)</span>不是凸区域，任取<span
+class="math inline">\(\boldsymbol{x}_0 \in D\)</span>，令<br />
+<span class="math display">\[
+    \begin{aligned}
+    A = \{ \boldsymbol{x} \in D: f(\boldsymbol{x}) =
+f(\boldsymbol{x_0})\} \\
+    B = \{ \boldsymbol{x} \in D: f(\boldsymbol{x}) \ne
+f(\boldsymbol{x_0}) \}
+    \end{aligned}
+\]</span><br />
+显然<span class="math inline">\(A\)</span>非空，而<span
+class="math inline">\(D=A \cup B\)</span>，由于<span
+class="math inline">\(D\)</span>是连通开集，若能证明<span
+class="math inline">\(A,B\)</span>是开集，则由<a
+target="_blank" rel="noopener" href="https://gamersover.github.io/2020/11/10/点列极限6/#定理3">点列极限六的定理3</a>可知，<span
+class="math inline">\(B =
+\varnothing\)</span>，从而证得结论。为了证明<span
+class="math inline">\(A\)</span>是开集，任取<span
+class="math inline">\(\boldsymbol{a} \in A \subset D\)</span>，存在<span
+class="math inline">\(B_{\boldsymbol{r}}(\boldsymbol{a}) \in
+D\)</span>，由于<span
+class="math inline">\(B_{\boldsymbol{r}}(\boldsymbol{a})\)</span>是凸区域，从而<span
+class="math inline">\(f\)</span>在<span
+class="math inline">\(B_{\boldsymbol{r}}(\boldsymbol{a})\)</span>上是常数，且对任意的<span
+class="math inline">\(\boldsymbol{x} \in
+B_{\boldsymbol{r}}(\boldsymbol{a})\)</span>，有<br />
+<span class="math display">\[
+    f(\boldsymbol{x}) = f(\boldsymbol{a}) = f(\boldsymbol{x}_0)
+\]</span><br />
+从而<span class="math inline">\(B_{\boldsymbol{r}}(\boldsymbol{a})
+\subset A\)</span>，也就说明<span
+class="math inline">\(A\)</span>是开集。同样的方法也可以证明<span
+class="math inline">\(B\)</span>是开集。再由上面分析可知命题成立。</p>
+<p>Q.E.D.</p>
+<h4 id="定理4">定理4</h4>
+<blockquote>
+<p>设<span class="math inline">\(k,n\)</span>是两个正整数，那么<br />
+<span class="math display">\[
+    (x_1 + \cdots + x_n)^k = \sum_{\alpha_1 + \cdots + \alpha_n = k}
+\frac{k!}{\alpha_1!\cdots\alpha_n!}x_1^{\alpha_1} \cdots x_n^{\alpha_n}
+\]</span><br />
+这里<span
+class="math inline">\(\alpha_1,\cdots,\alpha_n\)</span>是非负整数。如果记<span
+class="math inline">\(\boldsymbol{\alpha} = (\alpha_1, \cdots,
+\alpha_n)\)</span>，<span
+class="math inline">\(\boldsymbol{x}=(x_1,\cdots,x_n)\)</span>，且<br />
+<span class="math display">\[
+\begin{aligned}
+|\boldsymbol{\alpha}| &amp;= \alpha_1 + \cdots + \alpha_n \\
+\boldsymbol{\alpha}! &amp;= \alpha_1!\cdots\alpha_n! \\
+\boldsymbol{x}^{\boldsymbol{\alpha}} &amp;= x_1^{\alpha_1} \cdots
+x_n^{\alpha_n}
+\end{aligned}
+\]</span><br />
+则上式可简写为<br />
+<span class="math display">\[
+    (x_1 + \cdots + x_n)^k =
+\sum_{|\boldsymbol{\alpha}|=k}\frac{k!}{\boldsymbol{\alpha}!}\boldsymbol{x}^{\boldsymbol{\alpha}}
+\]</span></p>
+</blockquote>
+<p>证：对加项的个数<span class="math inline">\(n\)</span>作归纳。当<span
+class="math inline">\(n=2\)</span>时，该定理就是二项式定理，固然成立。先设<span
+class="math inline">\(n-1\)</span>时命题成立，那么当加项的个数为<span
+class="math inline">\(n\)</span>时，有<br />
+<span class="math display">\[
+    \begin{aligned}
+    (x_1 + \cdots + x_n)^k &amp;= ((x_1 + \cdots + x_{n-1}) + x_n)^k \\
+    &amp;= \sum_{\alpha_n=0}^k
+\frac{k!}{\alpha_n!(k-\alpha_n)!}(x_1+\cdots+x_{n-1})^{k-\alpha_n}x_n^{\alpha_n}
+\\
+    &amp;= \sum_{\alpha_n=0}^k \frac{k!}{\alpha_n!(k-\alpha_n)!}
+\sum_{\alpha_1 +
+\alpha_{n-1}=k-\alpha_n}\frac{(k-\alpha_n)!}{\alpha_1!\cdots\alpha_{n-1}!}
+x_1^{\alpha_1} \cdots x_{n-1}^{\alpha_{n-1}} x_n^{\alpha_n} \\
+    &amp; = \sum_{\alpha_1 + \cdots + \alpha_n = k}
+\frac{k!}{\alpha_1!\cdots\alpha_n!}x_1^{\alpha_1} \cdots x_n^{\alpha_n}
+    \end{aligned}
+\]</span></p>
+<p>Q.E.D.</p>
+<h4 id="定理5taylor公式">定理5：Taylor公式</h4>
+<blockquote>
+<p>设<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>是一个凸区域，<span class="math inline">\(f \in
+C^{m+1}(D)\)</span>，<span
+class="math inline">\(\boldsymbol{a}=(a_1,\cdots,a_n)\)</span>，<span
+class="math inline">\(\boldsymbol{a}+\boldsymbol{h} =
+(a_1+h_1,\cdots,a_n+h_n)\)</span>是<span
+class="math inline">\(D\)</span>中的两个点，则必存在<span
+class="math inline">\(\theta \in (0, 1)\)</span>，使得<br />
+<span class="math display">\[
+    f(\boldsymbol{a} + \boldsymbol{h}) = \sum_{k=0}^m
+\sum_{|\boldsymbol{a}|=k}
+\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} + \boldsymbol{R}_m
+\]</span><br />
+其中<br />
+<span class="math display">\[
+    D^{\boldsymbol{\alpha}}f(\boldsymbol{a}) =
+\frac{\partial^{\alpha_1+\cdots+\alpha_n}f}{\partial x_1^{\alpha_1}
+\cdots \partial x_n^{\alpha_n}}(\boldsymbol{a})
+\]</span><br />
+且<br />
+<span class="math display">\[
+    \boldsymbol{R}_m = \sum_{|\boldsymbol{\alpha}|=m+1}
+\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a} + \theta
+\boldsymbol{h})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}}
+\]</span><br />
+称为Lagrange余项。</p>
+</blockquote>
+<p>证：固定<span
+class="math inline">\(\boldsymbol{a},\boldsymbol{h}\)</span>，设<span
+class="math inline">\(t \in [0,1]\)</span>，考虑<span
+class="math inline">\([0,1]\)</span>上的函数<span
+class="math inline">\(\varphi(t) = f(\boldsymbol{a} + t
+\boldsymbol{h})\)</span>，显然<span
+class="math inline">\(\varphi\)</span>在<span
+class="math inline">\([0,1]\)</span>上有<span
+class="math inline">\(m+1\)</span>阶的连续导数，对<span
+class="math inline">\(\varphi\)</span>用单变量函数的Taylor公式，得<br />
+<span class="math display">\[
+    \varphi(1) = \varphi(0) + \varphi^\prime(0) +
+\frac{1}{2!}\varphi^{\prime\prime}(0) + \cdots +
+\frac{1}{m!}\varphi^{(m)}(0) + \frac{1}{(m+1)!}\varphi^{(m+1)}(\theta)
+\tag{1}
+\]</span><br />
+其中<span class="math inline">\(\theta \in (0, 1)\)</span>。显然<span
+class="math inline">\(\varphi(1) = f(\boldsymbol{a} +
+\boldsymbol{h})\)</span>，<span class="math inline">\(\varphi(0) =
+f(\boldsymbol{a})\)</span>，根据复合函数的求导公式得<br />
+<span class="math display">\[
+    \varphi^\prime(t) = \frac{\partial f}{\partial x_1}(\boldsymbol{a} +
+t \boldsymbol{h})h_1 + \cdots + \frac{\partial f}{\partial
+x_n}(\boldsymbol{a} + t \boldsymbol{h})h_n =
+\left(h_1\frac{\partial}{\partial x_1} + \cdots +
+h_n\frac{\partial}{\partial x_n}\right)f(\boldsymbol{a} + t
+\boldsymbol{h})
+\]</span><br />
+从而可得<br />
+<span class="math display">\[
+    \begin{aligned}
+        \varphi^{\prime\prime}(t) &amp;=
+\left(h_1\frac{\partial}{\partial x_1} + \cdots +
+h_n\frac{\partial}{\partial x_n}\right)^2f(\boldsymbol{a} +
+t\boldsymbol{h}) \\
+        \cdots, \\
+        \varphi^{(m)}(t) &amp;= \left(h_1\frac{\partial}{\partial x_1} +
+\cdots + h_n\frac{\partial}{\partial x_n}\right)^mf(\boldsymbol{a} +
+t\boldsymbol{h})
+    \end{aligned}
+\]</span><br />
+根据<a href="#定理4">定理4</a>可知，<br />
+<span class="math display">\[
+    \varphi^{(k)}(t) =
+\sum_{|\boldsymbol{\alpha}|=k}\frac{k!}{\boldsymbol{\alpha}!}\frac{\partial^{\alpha_1}}{\partial
+x_1^{\alpha_1}}\cdots \frac{\partial ^{\alpha_n}}{\partial
+x_n^{\alpha_n}}f(\boldsymbol{a} +
+t\boldsymbol{h})\boldsymbol{h}^{\boldsymbol{\alpha}} =
+\sum_{|\boldsymbol{\alpha}|=k}
+\frac{k!}{\boldsymbol{\alpha}!}D^{\boldsymbol{\alpha}}f(\boldsymbol{a} +
+t\boldsymbol{h}) \boldsymbol{h}^{\boldsymbol{\alpha}}
+\]</span><br />
+所以<br />
+<span class="math display">\[
+    \varphi^{(k)}(0) = \sum_{|\boldsymbol{\alpha}|=k}
+\frac{k!}{\boldsymbol{\alpha}!}D^{\boldsymbol{\alpha}}f(\boldsymbol{a})
+\boldsymbol{h}^{\boldsymbol{\alpha}}
+\]</span><br />
+将其代入(1)式，即得证明的结论。</p>
+<p>Q.E.D.</p>
+<h5 id="特别地">特别地</h5>
+<p>Taylor公式的前三项写出来就是<br />
+<span class="math display">\[
+    f(\boldsymbol{a} + \boldsymbol{h}) = f(\boldsymbol{a}) +
+\frac{\partial f}{\partial x_1}(\boldsymbol{a})h_1 + \cdots +
+\frac{\partial f}{\partial x_n}(\boldsymbol{a})h_n + \frac{1}{2}
+\sum_{i,j=1}^n\frac{\partial^2 f}{\partial x_i \partial
+x_j}(\boldsymbol{a})h_ih_j + \cdots
+\]</span><br />
+如果记<br />
+<span class="math display">\[
+    Hf(\boldsymbol{a}) = \begin{bmatrix}
+            \frac{\partial^2 f}{\partial x_1^2}(\boldsymbol{a}) &amp;
+\cdots &amp; \frac{\partial^2 f}{\partial x_1 \partial
+x_n}(\boldsymbol{a}) \\
+            \vdots &amp; &amp; \vdots \\
+            \frac{\partial^2 f}{\partial x_n \partial
+x_1}(\boldsymbol{a}) &amp; \cdots &amp; \frac{\partial^2 f}{\partial
+x_n^2}(\boldsymbol{a})
+    \end{bmatrix}
+\]</span><br />
+那么上式可写成<br />
+<span class="math display">\[
+    f(\boldsymbol{a} + \boldsymbol{h}) = f(\boldsymbol{a}) +
+Jf(\boldsymbol{a})\boldsymbol{h} + \frac{1}{2}\boldsymbol{h}^T
+Hf(\boldsymbol{a}) \boldsymbol{h} + \cdots
+\]</span><br />
+这里<span class="math inline">\(Hf\)</span>称为<span
+class="math inline">\(f\)</span>的Hesse方阵，它是一个<span
+class="math inline">\(n\)</span>阶对称方阵。</p>
+<h4 id="定理6">定理6</h4>
+<blockquote>
+<p>设<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>是一个凸区域，<span class="math inline">\(f \in
+C^m(D)\)</span>，<span
+class="math inline">\(\boldsymbol{a}\)</span>和<span
+class="math inline">\(\boldsymbol{a}+\boldsymbol{h}\)</span>是<span
+class="math inline">\(D\)</span>中的两个点，那么<br />
+<span class="math display">\[
+    f(\boldsymbol{a} + \boldsymbol{h}) = \sum_{k=0}^m
+\sum_{|\boldsymbol{\alpha}|=k}
+\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} + o(\Vert \boldsymbol{h} \Vert^m)
+\quad (\boldsymbol{h} \to \boldsymbol{0})
+\]</span></p>
+</blockquote>
+<p>证：由<a href="#定理5：Taylor公式">定理5</a>可知<br />
+<span class="math display">\[
+    f(\boldsymbol{a} + \boldsymbol{h}) = \sum_{k=0}^{m-1}
+\sum_{|\boldsymbol{\alpha}|=k}
+\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} +
+\sum_{|\boldsymbol{\alpha}|=m}\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a}
++ \theta \boldsymbol{h})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} \tag{2}
+\]</span><br />
+其中<span class="math inline">\(\theta \in (0, 1)\)</span>，因为<span
+class="math inline">\(f\)</span>的<span
+class="math inline">\(m\)</span>阶偏导数连续，所以<br />
+<span class="math display">\[
+    \lim \limits_{\boldsymbol{h} \to \boldsymbol{0}}
+D^{\boldsymbol{\alpha}}f(\boldsymbol{a} + \theta \boldsymbol{h}) =
+D^{\boldsymbol{\alpha}}f(\boldsymbol{a}) \quad (|\boldsymbol{\alpha}|=m)
+\]</span><br />
+从而有<br />
+<span class="math display">\[
+    D^{\boldsymbol{\alpha}}f(\boldsymbol{a} + \theta \boldsymbol{h}) =
+D^{\boldsymbol{\alpha}}f(\boldsymbol{a}) + o(1)  \quad (\boldsymbol{h}
+\to 0)
+\]</span><br />
+所以<br />
+<span class="math display">\[
+    \frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a} + \theta
+\boldsymbol{h})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} =
+\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} +
+o(\boldsymbol{h}^{\boldsymbol{\alpha}}) \quad (\boldsymbol{h} \to
+\boldsymbol{0})
+\]</span><br />
+当<span
+class="math inline">\(|\boldsymbol{\alpha}|=m\)</span>时，有<br />
+<span class="math display">\[
+    |\boldsymbol{h}^{\boldsymbol{\alpha}}| = |h_1^{\alpha_1} \cdots
+h_n^{\alpha_n}| = |h_1|^{\alpha_1} \cdots |h_n|^{\alpha_n} \le \Vert
+\boldsymbol{h} \Vert^{m}
+\]</span><br />
+从而<br />
+<span class="math display">\[
+    \sum_{|\boldsymbol{\alpha}| =
+m}\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a} + \theta
+\boldsymbol{h})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} = \sum_{|\boldsymbol{\alpha}| =
+m}\frac{D^{\boldsymbol{\alpha}}f(\boldsymbol{a})}{\boldsymbol{\alpha}!}
+\boldsymbol{h}^{\boldsymbol{\alpha}} + o(\Vert \boldsymbol{h} \Vert^{m})
+\quad (\boldsymbol{h} \to \boldsymbol{0})
+\]</span><br />
+将上式代入(2)式中，即证得命题成立。</p>
+<p>Q.E.D.</p>
+<h4 id="定理7拟微分平均值定理">定理7：拟微分平均值定理</h4>
+<blockquote>
+<p>设<span class="math inline">\(\boldsymbol{f}: [a,b] \to
+\mathbb{R}^m\)</span>是<span
+class="math inline">\([a,b]\)</span>上的连续映射，在开区间<span
+class="math inline">\((a,b)\)</span>上可微，那么存在一点<span
+class="math inline">\(\xi \in (a,b)\)</span>使得<br />
+<span class="math display">\[
+    \Vert \boldsymbol{f}(b) - \boldsymbol{f}(a) \Vert \le \Vert
+J\boldsymbol{f}(\xi) \Vert (b-a)
+\]</span></p>
+</blockquote>
+<p>证：设<span class="math inline">\(\boldsymbol{u} = \boldsymbol{f}(b)
+- \boldsymbol{f}(a)\)</span>，利用<span
+class="math inline">\(\mathbb{R}^m\)</span>中的内积来定义函数<br />
+<span class="math display">\[
+    \varphi(t) = \left&lt;\boldsymbol{u}, \boldsymbol{f}(t)\right&gt;
+\quad (a \le t \le b)
+\]</span><br />
+易知<span class="math inline">\(\varphi\)</span>是<span
+class="math inline">\([a,b]\)</span>上的连续函数，并在开区间<span
+class="math inline">\((a,b)\)</span>上可微，对<span
+class="math inline">\(\varphi\)</span>使用微分中值定理，可知存在一点<span
+class="math inline">\(\xi \in (a,b)\)</span>使得<br />
+<span class="math display">\[
+    \varphi(b) - \varphi(a) = (b-a)\varphi^\prime(\xi) =
+(b-a)\left&lt;\boldsymbol{u}, J\boldsymbol{f}(\xi) \right&gt;
+\]</span><br />
+而<br />
+<span class="math display">\[
+    \varphi(b) - \varphi(a) = \left&lt; \boldsymbol{u},
+\boldsymbol{f}(b) \right&gt; - \left&lt; \boldsymbol{u},
+\boldsymbol{f}(a) \right&gt; = \left&lt; \boldsymbol{u},
+\boldsymbol{f}(b) - \boldsymbol{f}(a)\right&gt; = \left&lt;
+\boldsymbol{u}, \boldsymbol{u} \right&gt; = \Vert \boldsymbol{u} \Vert^2
+\]</span><br />
+由Cauchy-Schwarz不等式，可得<br />
+<span class="math display">\[
+    \Vert \boldsymbol{u} \Vert^2 = (b-a)\left&lt; \boldsymbol{u},
+J\boldsymbol{f}(\xi) \right&gt; \le (b-a)\Vert \boldsymbol{u} \Vert
+\Vert J\boldsymbol{f}(\xi) \Vert
+\]</span><br />
+当<span class="math inline">\(\boldsymbol{u} \ne
+\boldsymbol{0}\)</span>时，式子两边消去<span class="math inline">\(\Vert
+\boldsymbol{u} \Vert\)</span>即得证原命题；若<span
+class="math inline">\(\boldsymbol{u} =
+\boldsymbol{0}\)</span>，命题自然成立。</p>
+<p>Q.E.D.</p>
+<h4 id="定理8">定理8</h4>
+<blockquote>
+<p>设凸区域<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>，且映射<span class="math inline">\(\boldsymbol{f}:
+D \to \mathbb{R}^m\)</span>在<span
+class="math inline">\(D\)</span>上可微，则对任何<span
+class="math inline">\(\boldsymbol{a},\boldsymbol{b} \in
+D\)</span>，在由<span class="math inline">\(\boldsymbol{a},
+\boldsymbol{b}\)</span>所决定的线段上必有一点<span
+class="math inline">\(\boldsymbol{\xi}\)</span>，使得<br />
+<span class="math display">\[
+    \boldsymbol{f}(\boldsymbol{b}) - \boldsymbol{f}(\boldsymbol{a}) \le
+\Vert J\boldsymbol{f}(\boldsymbol{\xi}) \Vert \Vert \boldsymbol{b} -
+\boldsymbol{a}\Vert
+\]</span></p>
+</blockquote>
+<p>证：由<span class="math inline">\(\boldsymbol{a}\)</span>与<span
+class="math inline">\(\boldsymbol{b}\)</span>所决定的线段可表示为<br />
+<span class="math display">\[
+    \boldsymbol{r}(t) = \boldsymbol{a} + t (\boldsymbol{b} -
+\boldsymbol{a}) \quad (0 \le t \le 1)
+\]</span><br />
+令<br />
+<span class="math display">\[
+    \boldsymbol{g}(t) = \boldsymbol{f} \circ \boldsymbol{r}(t)
+\]</span><br />
+映射<span class="math inline">\(g\)</span>在<span
+class="math inline">\([0,1]\)</span>上连续，在<span
+class="math inline">\((0,1)\)</span>内可微，从而<br />
+<span class="math display">\[
+    J\boldsymbol{g}(t) =
+J\boldsymbol{f}(\boldsymbol{r}(t))(\boldsymbol{b} - \boldsymbol{a})
+\]</span><br />
+由<a href="#定理7：拟微分平均值定理">定理7</a>可知存在<span
+class="math inline">\(\tau \in (0, 1)\)</span>，使得<br />
+<span class="math display">\[
+    \Vert \boldsymbol{g}(1) - \boldsymbol{g}(0)\Vert = \Vert
+J\boldsymbol{g}(\tau)\Vert
+\]</span><br />
+即<br />
+<span class="math display">\[
+    \Vert \boldsymbol{f}(\boldsymbol{b}) -
+\boldsymbol{f}(\boldsymbol{a}) \Vert \le \Vert
+J\boldsymbol{f}(\boldsymbol{r}(\tau))(\boldsymbol{b} - \boldsymbol{a})
+\Vert
+\]</span><br />
+令<span class="math inline">\(\boldsymbol{\xi} =
+\boldsymbol{r}(\tau)\)</span>，可得<br />
+<span class="math display">\[
+    \Vert \boldsymbol{f}(\boldsymbol{b}) -
+\boldsymbol{f}(\boldsymbol{a}) \Vert \le \Vert
+J\boldsymbol{f}(\boldsymbol{\xi})(\boldsymbol{b} - \boldsymbol{a}) \Vert
+\le \Vert J\boldsymbol{f}(\boldsymbol{\xi}) \Vert \Vert \boldsymbol{b} -
+\boldsymbol{a} \Vert
+\]</span></p>
+<p>Q.E.D.</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/13/函数导数10/" rel="bookmark">函数导数十：隐函数、隐映射定理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/19/函数导数11/" rel="bookmark">函数导数十一：逆映射定理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/03/16/函数导数6/" rel="bookmark">函数导数六：函数的微分</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/03/28/函数导数7/" rel="bookmark">函数导数七：Taylor定理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/11/函数导数9/" rel="bookmark">函数导数九：映射微分和复合求导</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i> 数学分析</a>
+              <a href="/tags/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 函数导数</a>
+              <a href="/tags/%E5%BE%AE%E5%88%86/" rel="tag"><i class="fa fa-tag"></i> 微分</a>
+              <a href="/tags/Taylor%E5%AE%9A%E7%90%86/" rel="tag"><i class="fa fa-tag"></i> Taylor定理</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/19/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B011/" rel="prev" title="函数导数十一：逆映射定理">
+      <i class="fa fa-chevron-left"></i> 函数导数十一：逆映射定理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/25/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B013/" rel="next" title="函数导数十三：极值">
+      函数导数十三：极值 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%891"><span class="nav-text">定义1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%861"><span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%862"><span class="nav-text">定理2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%863"><span class="nav-text">定理3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%864"><span class="nav-text">定理4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%865taylor%E5%85%AC%E5%BC%8F"><span class="nav-text">定理5：Taylor公式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%B9%E5%88%AB%E5%9C%B0"><span class="nav-text">特别地</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%866"><span class="nav-text">定理6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%867%E6%8B%9F%E5%BE%AE%E5%88%86%E5%B9%B3%E5%9D%87%E5%80%BC%E5%AE%9A%E7%90%86"><span class="nav-text">定理7：拟微分平均值定理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%868"><span class="nav-text">定理8</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈华杰"
+      src="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+  <p class="site-author-name" itemprop="name">陈华杰</p>
+  <div class="site-description" itemprop="description">为天地立心，为生民立命，为往圣继绝学，为万世开太平</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gamersover" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gamersover" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈华杰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">500k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:34</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2b5e8584032528a65176',
+      clientSecret: '4a98c67c6337be0cd82b30d04699a4dcef47307c',
+      repo        : 'gamersover.github.io',
+      owner       : 'gamersover',
+      admin       : ['gamersover'],
+      id          : '28edc9efe03a0e174ea043e397383104',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

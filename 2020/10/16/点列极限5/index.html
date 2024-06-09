@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_logo_custom32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_logo_custom16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-rqJrmmkVwO">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+  </script>
+
+  <meta name="description" content="本章的内容为接下来的函数极限做铺垫。欧几里得空间\(\mathbb{R^n}\)中关于点\(\boldsymbol{a}\)的邻域两个常用到的概念为 \[     \begin{aligned}         &amp; B_r(\boldsymbol{a}) &#x3D; \{ \boldsymbol{x} \in \mathbb{R^n} : \Vert \boldsymbol{x} - \bolds">
+<meta property="og:type" content="article">
+<meta property="og:title" content="点列极限五：拓扑学基础之开集、闭集">
+<meta property="og:url" content="http://yoursite.com/2020/10/16/%E7%82%B9%E5%88%97%E6%9E%81%E9%99%905/index.html">
+<meta property="og:site_name" content="尘雨尘风">
+<meta property="og:description" content="本章的内容为接下来的函数极限做铺垫。欧几里得空间\(\mathbb{R^n}\)中关于点\(\boldsymbol{a}\)的邻域两个常用到的概念为 \[     \begin{aligned}         &amp; B_r(\boldsymbol{a}) &#x3D; \{ \boldsymbol{x} \in \mathbb{R^n} : \Vert \boldsymbol{x} - \bolds">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-16T12:39:14.000Z">
+<meta property="article:modified_time" content="2020-10-16T12:39:14.000Z">
+<meta property="article:author" content="陈华杰">
+<meta property="article:tag" content="数学分析">
+<meta property="article:tag" content="点列极限">
+<meta property="article:tag" content="拓扑">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/16/%E7%82%B9%E5%88%97%E6%9E%81%E9%99%905/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>点列极限五：拓扑学基础之开集、闭集 | 尘雨尘风</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">尘雨尘风</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">数学与编程的爱好者</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">86</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">162</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/16/%E7%82%B9%E5%88%97%E6%9E%81%E9%99%905/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          点列极限五：拓扑学基础之开集、闭集
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-16 20:39:14" itemprop="dateCreated datePublished" datetime="2020-10-16T20:39:14+08:00">2020-10-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本章的内容为接下来的函数极限做铺垫。欧几里得空间<span
+class="math inline">\(\mathbb{R^n}\)</span>中关于点<span
+class="math inline">\(\boldsymbol{a}\)</span>的邻域两个常用到的概念为<br />
+<span class="math display">\[
+    \begin{aligned}
+        &amp; B_r(\boldsymbol{a}) = \{ \boldsymbol{x} \in \mathbb{R^n} :
+\Vert \boldsymbol{x} - \boldsymbol{a} \Vert &lt; r \} \\
+        &amp; B_r(\boldsymbol{\check a}) = \{ \boldsymbol{x} \in
+\mathbb{R^n} : 0 &lt; \Vert \boldsymbol{x} - \boldsymbol{a} \Vert &lt; r
+\}
+    \end{aligned}
+\]</span><br />
+其中<span class="math inline">\(B_r(\boldsymbol{a})\)</span>称为以<span
+class="math inline">\(\boldsymbol{a}\)</span>为球心，<span
+class="math inline">\(r&gt;0\)</span>为半径的球，而<span
+class="math inline">\(B_r(\boldsymbol{\check
+a})\)</span>称为相应的空心球。</p>
+<span id="more"></span>
+<h4 id="定义1开集">定义1：开集</h4>
+<blockquote>
+<p>（1）设<span class="math inline">\(E \in
+\mathbb{R^n}\)</span>，如果点<span class="math inline">\(\boldsymbol{a}
+\in E\)</span>，并且存在<span
+class="math inline">\(r&gt;0\)</span>，使得<span
+class="math inline">\(B_r(\boldsymbol{a}) \subset
+E\)</span>，那么称<span
+class="math inline">\(\boldsymbol{a}\)</span>为<span
+class="math inline">\(E\)</span>的一个内点；<br />
+（2）<span class="math inline">\(E\)</span>的全体内点构成的集合记作<span
+class="math inline">\(E°\)</span>，称为<span
+class="math inline">\(E\)</span>的内部<br />
+（3）若<span class="math inline">\(E°=E\)</span>，则称<span
+class="math inline">\(E\)</span>为开集。</p>
+</blockquote>
+<h4 id="定理1">定理1</h4>
+<blockquote>
+<p>对任何集<span class="math inline">\(E\)</span>，<span
+class="math inline">\(E\)</span>的内部<span
+class="math inline">\(E°\)</span>是开集。</p>
+</blockquote>
+<p>证：若<span class="math inline">\(E°=\varnothing\)</span>，可知<span
+class="math inline">\(E°=(E°)°=\varnothing\)</span>，可知<span
+class="math inline">\(E°\)</span>是开集；若<span
+class="math inline">\(E° \ne \varnothing\)</span>，任取<span
+class="math inline">\(\boldsymbol{c} \in E°\)</span>，可知存在<span
+class="math inline">\(r&gt;0\)</span>，使得<span
+class="math inline">\(B_r(\boldsymbol{c}) \subset
+E\)</span>；从而任取<span class="math inline">\(\boldsymbol{a} \in
+B_r(\boldsymbol{c})\)</span>，令<span class="math inline">\(d=r - \Vert
+\boldsymbol{a} - \boldsymbol{c} \Vert\)</span>，对于<span
+class="math inline">\(\boldsymbol{x} \in
+B_d(\boldsymbol{a})\)</span>，有<br />
+<span class="math display">\[
+    \Vert \boldsymbol{x} - \boldsymbol{c} \Vert \le \Vert \boldsymbol{x}
+- \boldsymbol{a} \Vert + \Vert \boldsymbol{a} - \boldsymbol{c} \Vert \le
+d + \Vert \boldsymbol{a} - \boldsymbol{c} \Vert = r
+\]</span><br />
+从而有<span class="math inline">\(\boldsymbol{x} \in
+B_r(\boldsymbol{c})\)</span>，可得<span
+class="math inline">\(B_d(\boldsymbol{a}) \subset B_r(\boldsymbol{c})
+\subset E\)</span>，从而<span class="math inline">\(\boldsymbol{a} \in
+E°\)</span>，由于<span class="math inline">\(\boldsymbol{a} \in
+B_r(\boldsymbol{c})\)</span>，所以<span
+class="math inline">\(B_r(\boldsymbol{c}) \subset E°\)</span>，所以<span
+class="math inline">\(E°\)</span>是开集。</p>
+<p>Q.E.D.</p>
+<h4 id="定理2">定理2</h4>
+<blockquote>
+<p>在空间<span class="math inline">\(\mathbb{R^n}\)</span>中：<br />
+（1）<span
+class="math inline">\(\mathbb{R^n},\varnothing\)</span>是开集；<br />
+（2）设<span class="math inline">\(\{E_\alpha\}\)</span>是<span
+class="math inline">\(\mathbb{R^n}\)</span>的一个开子集族，其中指标<span
+class="math inline">\(\alpha\)</span>来自一个指标集<span
+class="math inline">\(I\)</span>，那么并集<span
+class="math inline">\(\bigcup \limits_{\alpha \in
+I}E_\alpha\)</span>是开集（任意多个开集的并是开集）<br />
+（3）设<span
+class="math inline">\(E_1,E_2,\cdots,E_m\)</span>是有限多个开集，那么交集<span
+class="math inline">\(\bigcap
+\limits_{i=1}^mE_i\)</span>是开集（有限个开集的交是开集）。</p>
+</blockquote>
+<p>证：（1）显然，下面证（2）（3）<br />
+（2）任取<span class="math inline">\(\boldsymbol{a} \in \bigcup
+\limits_{\alpha \in I} E_\alpha\)</span>，存在<span
+class="math inline">\(\beta \in I\)</span>，使得<span
+class="math inline">\(\boldsymbol{a} \in E_\beta\)</span>，由于<span
+class="math inline">\(E_\beta\)</span>是开集，从而存在球<span
+class="math inline">\(B_r(\boldsymbol{a}) \subset E_\beta \subset
+\bigcup \limits_{\alpha \in I} E_\alpha\)</span>，从而<span
+class="math inline">\(\boldsymbol{a}\)</span>是<span
+class="math inline">\(\bigcup \limits_{\alpha \in I}
+E_\alpha\)</span>的内点，所以<span class="math inline">\(\bigcup
+\limits_{\alpha \in I} E_\alpha\)</span>是开集。<br />
+（3）任取<span class="math inline">\(\boldsymbol{a} \in \bigcap
+\limits_{i=1}^mE_i\)</span>，即<span
+class="math inline">\(\boldsymbol{a} \in E_i
+(i=1,2,\cdots,m)\)</span>，则存在<span
+class="math inline">\(r_i&gt;0\)</span>，使得<br />
+<span class="math display">\[
+    B_{r_i}(\boldsymbol{a}) \in E_i (i=1,2,\cdots,m)
+\]</span><br />
+令<span class="math inline">\(r =
+\min(r_1,r_2,\cdots,r_m)\)</span>，可得<br />
+<span class="math display">\[
+    B_r(\boldsymbol{a}) \subset \bigcap \limits_{i=1}^mE_i
+\]</span><br />
+所以<span class="math inline">\(\boldsymbol{a}\)</span>是<span
+class="math inline">\(\bigcap
+\limits_{i=1}^mE_i\)</span>的内点，从而<span
+class="math inline">\(\bigcap \limits_{i=1}^mE_i\)</span>是开集。</p>
+<p>Q.E.D.</p>
+<h4 id="定义2闭集">定义2：闭集</h4>
+<blockquote>
+<p>设<span class="math inline">\(F \subset
+\mathbb{R^n}\)</span>，若<span
+class="math inline">\(F^c\)</span>是开集，则称<span
+class="math inline">\(F\)</span>是闭集。</p>
+</blockquote>
+<h4 id="定理3">定理3</h4>
+<blockquote>
+<p>在空间<span class="math inline">\(\mathbb{R^n}\)</span>中：<br />
+（1）<span
+class="math inline">\(\mathbb{R^n},\varnothing\)</span>是闭集；<br />
+（2）设<span class="math inline">\(\{F_\alpha\}\)</span>是<span
+class="math inline">\(\mathbb{R^n}\)</span>的一个闭子集族，其中指标<span
+class="math inline">\(\alpha\)</span>来自一个指标集<span
+class="math inline">\(I\)</span>，那么交集<span
+class="math inline">\(\bigcap \limits_{\alpha \in
+I}F_\alpha\)</span>是闭集（任意多个闭集的并是闭集）<br />
+（3）设<span
+class="math inline">\(F_1,F_2,\cdots,F_m\)</span>是有限多个开集，那么交集<span
+class="math inline">\(\bigcup \limits_{i=1}^m
+F_i\)</span>是闭集（有限个闭集的交是闭集）。</p>
+</blockquote>
+<p>利用De Morgan对偶原理与定理7的结论容易证明，从略。</p>
+<h4 id="定义3凝聚点或极限点">定义3：凝聚点或极限点</h4>
+<blockquote>
+<p>设<span class="math inline">\(E \subset
+\mathbb{R^n}\)</span>，若<span class="math inline">\(\boldsymbol{a} \in
+\mathbb{R^n}\)</span>，并满足对任意的<span
+class="math inline">\(r&gt;0\)</span>，在空心球<span
+class="math inline">\(B_r(\boldsymbol{\check a})\)</span>内总有<span
+class="math inline">\(E\)</span>中的点，则称<span
+class="math inline">\(\boldsymbol{a}\)</span>为<span
+class="math inline">\(E\)</span>的凝聚点或极限点。</p>
+</blockquote>
+<h4 id="定义4导集和闭包">定义4：导集和闭包</h4>
+<blockquote>
+<p>点集<span class="math inline">\(E \subset
+\mathbb{R^n}\)</span>的凝聚点的全体称为<span
+class="math inline">\(E\)</span>的导集，记作<span
+class="math inline">\(E^{\prime}\)</span>，记<span
+class="math inline">\(\bar E = E \cup E^{\prime}\)</span>，称<span
+class="math inline">\(\bar E\)</span>为<span
+class="math inline">\(E\)</span>的闭包</p>
+</blockquote>
+<h4 id="定理4">定理4</h4>
+<blockquote>
+<p><span class="math inline">\(E\)</span>是闭集的充分必要条件是<span
+class="math inline">\(E^{\prime} \subset E\)</span>，即<span
+class="math inline">\(\bar E = E\)</span>。</p>
+</blockquote>
+<p>证：必要性。反证法，假设存在<span
+class="math inline">\(\boldsymbol{a} \in E^{\prime}\)</span>，而<span
+class="math inline">\(\boldsymbol{a} \notin E\)</span>，可知<span
+class="math inline">\(\boldsymbol{a} \in E^{c}\)</span>，又由于<span
+class="math inline">\(E\)</span>是闭集，从而<span
+class="math inline">\(E^{c}\)</span>是开集，从而存在<span
+class="math inline">\(B_r(\boldsymbol{a}) \subset
+E^c\)</span>，这时<span
+class="math inline">\(B_r(\boldsymbol{a})\)</span>中没有$E<br />
+<span class="math inline">\(中的点，结合\)</span> E<span
+class="math inline">\(，可知\)</span>B_r()<span
+class="math inline">\(中没有\)</span>E<span
+class="math inline">\(中的点，而这与\)</span><span
+class="math inline">\(是\)</span>E<span
+class="math inline">\(的凝聚点矛盾，从而得证。 充分性。任取\)</span>
+E^{c}<span class="math inline">\(，可知\)</span> E^{}<span
+class="math inline">\(，从而存在空心球\)</span>B_r() E^{c}<span
+class="math inline">\(，结合\)</span> E^c<span
+class="math inline">\(，可知\)</span>B_r() E<sup>c<span
+class="math inline">\(，所以\)</span>E</sup>c<span
+class="math inline">\(是开集，从而\)</span>E$是闭集。</p>
+<p>Q.E.D.</p>
+<h4 id="定理5">定理5</h4>
+<blockquote>
+<p><span class="math inline">\(E\)</span>是闭集的充分必要条件是，<span
+class="math inline">\(E\)</span>中的任意收敛点列的极限必在<span
+class="math inline">\(E\)</span>中。</p>
+</blockquote>
+<p>证：必要性。设<span class="math inline">\(E\)</span>中的收敛点列<span
+class="math inline">\(\{\boldsymbol{x}_i\}\)</span>有极限<span
+class="math inline">\(\boldsymbol{a}\)</span>，则<span
+class="math inline">\(\boldsymbol{a} \in E\)</span>或<span
+class="math inline">\(\boldsymbol{a} \notin E\)</span>，如果<span
+class="math inline">\(\boldsymbol{a} \notin
+E\)</span>，由极限性质可知<span class="math inline">\(\boldsymbol{a} \in
+E^{\prime}\)</span>，又根据<a href="#定理4">定理4</a>，可得<span
+class="math inline">\(\boldsymbol{a} \in E\)</span>，所以<span
+class="math inline">\(\boldsymbol{a}\)</span>必在<span
+class="math inline">\(E\)</span>中。<br />
+充分性。任取<span class="math inline">\(\boldsymbol{a} \in
+E^{\prime}\)</span>，可从<span
+class="math inline">\(E\)</span>中选出点列<span
+class="math inline">\(\{\boldsymbol{x}_i\}\)</span>收敛于<span
+class="math inline">\(\boldsymbol{a}\)</span>，而<span
+class="math inline">\(\boldsymbol{a} \in E\)</span>，所以<span
+class="math inline">\(E^{\prime} \subset E\)</span>，从而<span
+class="math inline">\(E\)</span>是闭集。</p>
+<p>Q.E.D.</p>
+<h4 id="定理6">定理6</h4>
+<blockquote>
+<p><span class="math inline">\(E\)</span>的导集<span
+class="math inline">\(E^{\prime}\)</span>与<span
+class="math inline">\(\bar E\)</span>都是闭集。</p>
+</blockquote>
+<p>证：前一命题。任取<span class="math inline">\(\boldsymbol{a} \in
+(E^{\prime})^c\)</span>，可知<span
+class="math inline">\(\boldsymbol{a}\)</span>不是<span
+class="math inline">\(E\)</span>的极限点，则存在一个球<span
+class="math inline">\(B_r(\boldsymbol{a})\)</span>，其中至多只有<span
+class="math inline">\(E\)</span>中的一个点，且该点若存在只能是<span
+class="math inline">\(\boldsymbol{a}\)</span>，由因为<span
+class="math inline">\(B_r(\boldsymbol{a})\)</span>是开集，从而任取<span
+class="math inline">\(\boldsymbol{c} \in
+B_r(\boldsymbol{a})\)</span>，若<span
+class="math inline">\(\boldsymbol{c} =
+\boldsymbol{a}\)</span>，自然有<span
+class="math inline">\(\boldsymbol{c} \in
+(E^{\prime})^c\)</span>，若<span class="math inline">\(\boldsymbol{c}
+\ne \boldsymbol{a}\)</span>，则存在球<span
+class="math inline">\(B_s(\boldsymbol{c}) \subset
+B_r(\boldsymbol{a})\)</span>，且<span
+class="math inline">\(B_s(\boldsymbol{c})\)</span>不包含<span
+class="math inline">\(E\)</span>中的点，可知此时<span
+class="math inline">\(\boldsymbol{c}\)</span>也不可能是<span
+class="math inline">\(E\)</span>的极限点；即<span
+class="math inline">\(B_r(\boldsymbol{a}) \subset
+(E^{\prime})^c\)</span>，所以<span
+class="math inline">\(E^{\prime}\)</span>是闭集。<br />
+后一命题。若<span
+class="math inline">\(E^{\prime}=\varnothing\)</span>，可知<span
+class="math inline">\(\bar{E} = E\)</span>，可知<span
+class="math inline">\(E\)</span>是闭集，从而<span
+class="math inline">\(\bar{E}\)</span>是闭集；若<span
+class="math inline">\(E^{\prime} \ne \varnothing\)</span>，则任取<span
+class="math inline">\(\bar{E}\)</span>中的一个收敛点列<span
+class="math inline">\(\{\boldsymbol{x}_i\}\)</span>有极限<span
+class="math inline">\(\boldsymbol{a}\)</span>，如果<span
+class="math inline">\(\{\boldsymbol{x}_i\}\)</span>中只有有限个点，显然有<span
+class="math inline">\(\boldsymbol{a} \in
+\bar{E}\)</span>中，否则其中必有一个子列的点全属于<span
+class="math inline">\(E\)</span>或者<span
+class="math inline">\(E^{\prime}\)</span>，若全属于<span
+class="math inline">\(E\)</span>，则有<span
+class="math inline">\(\boldsymbol{a} \in E^{\prime} \subset
+\bar{E}\)</span>，若全属于<span
+class="math inline">\(E^{\prime}\)</span>，由于前面已证得<span
+class="math inline">\(E^{\prime}\)</span>是闭集，从而<span
+class="math inline">\(\boldsymbol{a} \in E^{\prime} \subset
+\bar{E}\)</span>，所以<span
+class="math inline">\(\bar{E}\)</span>是闭集。</p>
+<p>Q.E.D.</p>
+<h4 id="定理7">定理7</h4>
+<blockquote>
+<p><span class="math inline">\(E°\)</span>是含于<span
+class="math inline">\(E\)</span>内的最大开集，<span
+class="math inline">\(\bar E\)</span>是包含<span
+class="math inline">\(E\)</span>的最小闭集。</p>
+</blockquote>
+<p>证：前一命题。设开集<span class="math inline">\(B \subset
+E\)</span>，任取<span class="math inline">\(\boldsymbol{a} \in B \subset
+E\)</span>，可知存在球<span class="math inline">\(B_r(\boldsymbol{a})
+\subset B \subset E\)</span>，可知<span
+class="math inline">\(\boldsymbol{a} \in E°\)</span>，所以<span
+class="math inline">\(B \subset E°\)</span>。<br />
+后一命题。设闭集<span class="math inline">\(F \supset
+E\)</span>，任取<span class="math inline">\(\boldsymbol{b} \in \bar E =
+E^{\prime} \cup E\)</span>，若<span class="math inline">\(\boldsymbol{b}
+\in E\)</span>，则<span class="math inline">\(\boldsymbol{b} \in
+F\)</span>；若<span class="math inline">\(\boldsymbol{b} \in
+E^{\prime}\)</span>，则<span
+class="math inline">\(E\)</span>中有一个点列<span
+class="math inline">\(\{\boldsymbol{x}_i\}\)</span>收敛于<span
+class="math inline">\(\boldsymbol{b}\)</span>，而这个点列也可以看出是<span
+class="math inline">\(F\)</span>中的，再由<a
+href="#定理5">定理5</a>可知，<span class="math inline">\(\boldsymbol{b}
+\in F\)</span>，所以<span class="math inline">\(\bar E \subset
+F\)</span>。</p>
+<p>Q.E.D.</p>
+<h4 id="定义5边界">定义5：边界</h4>
+<blockquote>
+<p>（1）设点集<span class="math inline">\(E\subset
+\mathbb{R^n}\)</span>，<span
+class="math inline">\((E^c)^°\)</span>中的点称为<span
+class="math inline">\(E\)</span>的外点，外点的全体称为<span
+class="math inline">\(E\)</span>的外部；<br />
+（2）既不是<span class="math inline">\(E\)</span>的内点又不是<span
+class="math inline">\(E\)</span>的外点的点称为<span
+class="math inline">\(E\)</span>的边界点，边界点的全体称为<span
+class="math inline">\(E\)</span>的边界。</p>
+</blockquote>
+<h4 id="定义6直径">定义6：直径</h4>
+<blockquote>
+<p>设非空点集<span class="math inline">\(E \subset
+\mathbb{R^n}\)</span>，记<br />
+<span class="math display">\[
+    diam(E) = \sup \{ \Vert \boldsymbol{x} - \boldsymbol{y} \Vert:
+\boldsymbol{x}, \boldsymbol{y} \in E \}
+\]</span><br />
+称该数为集合<span class="math inline">\(E\)</span>的直径。</p>
+</blockquote>
+<h4 id="定理8闭区间套定理">定理8：闭区间套定理</h4>
+<blockquote>
+<p>设<span class="math inline">\(\{\boldsymbol{F}_i\}(\boldsymbol{F}_i
+\ne \varnothing, i=1,2,3,\cdots)\)</span>是一闭集列，并且<span
+class="math inline">\(\boldsymbol{F}_1 \supset \boldsymbol{F}_2 \supset
+\boldsymbol{F}_3 \supset \cdots\)</span>，若<br />
+<span class="math display">\[
+    \lim \limits_{i \to \infty} diam(\boldsymbol{F}_i) = 0
+\]</span><br />
+那么<span class="math inline">\(\bigcap \limits_{i=1}^\infty
+\boldsymbol{F}_i\)</span>只含唯一的点。</p>
+</blockquote>
+<p>证：因为<span
+class="math inline">\(\boldsymbol{F}_i\)</span>不是空集，因此对每个<span
+class="math inline">\(i \in \mathbb{N}^{*}\)</span>，都存在<span
+class="math inline">\(\boldsymbol{x}_i \in
+\boldsymbol{F}_i\)</span>，又由闭区间套的性质可知<br />
+<span class="math display">\[
+    \{\boldsymbol{x}_i, \boldsymbol{x}_{i+1}, \boldsymbol{x}_{i+2},
+\cdots\} \in \boldsymbol{F}_i \quad (i \in \mathbb{N}^{*})
+\]</span><br />
+所以当<span class="math inline">\(k,l &gt; i\)</span>时，<br />
+<span class="math display">\[
+    \Vert \boldsymbol{x}_k - \boldsymbol{x}_l \Vert \le
+diam(\boldsymbol{F}_i) \to 0 \quad (i \to \infty)
+\]</span><br />
+可知<span class="math inline">\(\{ \boldsymbol{x}_i
+\}\)</span>时基本点列，不妨设其收敛于点<span
+class="math inline">\(\boldsymbol{a}\)</span>，又由闭集的性质<a
+href="#定理5">定理5</a>可知，<span class="math inline">\(\boldsymbol{a}
+\in \boldsymbol{F}_i\)</span>对所有<span class="math inline">\(i \in
+\mathbb{N}^{*}\)</span>成立，因此<span
+class="math inline">\(\boldsymbol{a} \in \bigcap \limits_{i=1}^\infty
+\boldsymbol{F}_i\)</span>。<br />
+假设还有点<span class="math inline">\(\boldsymbol{b} \in \bigcap
+\limits_{i=1}^\infty \boldsymbol{F}_i\)</span>，从而<span
+class="math inline">\(\boldsymbol{a},\boldsymbol{b} \in
+\boldsymbol{F}_i\)</span>，可知<br />
+<span class="math display">\[
+    \Vert \boldsymbol{a} - \boldsymbol{b} \Vert \le
+diam(\boldsymbol{F_i}) = 0 \quad (i \to \infty)
+\]</span><br />
+可知<span class="math inline">\(\boldsymbol{a} =
+\boldsymbol{b}\)</span>。所以<span
+class="math inline">\(\boldsymbol{a}\)</span>唯一。</p>
+<p>Q.E.D.</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/11/10/点列极限6/" rel="bookmark">点列极限六：拓扑学基础之列紧集、紧致集、连通集</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/09/20/点列极限1/" rel="bookmark">点列极限一：数列极限定义与基本性质</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/09/24/点列极限2/" rel="bookmark">点列极限二：实数连续性</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/09/28/点列极限3/" rel="bookmark">点列极限三：数列极限的上极限与下极限，Stolz定理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/10/09/点列极限4/" rel="bookmark">点列极限四：欧式空间中的点列极限</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i> 数学分析</a>
+              <a href="/tags/%E7%82%B9%E5%88%97%E6%9E%81%E9%99%90/" rel="tag"><i class="fa fa-tag"></i> 点列极限</a>
+              <a href="/tags/%E6%8B%93%E6%89%91/" rel="tag"><i class="fa fa-tag"></i> 拓扑</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/09/%E7%82%B9%E5%88%97%E6%9E%81%E9%99%904/" rel="prev" title="点列极限四：欧式空间中的点列极限">
+      <i class="fa fa-chevron-left"></i> 点列极限四：欧式空间中的点列极限
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/11/07/leetcode%E9%A2%98%E8%A7%A31/" rel="next" title="leetcode题解1：两数之和">
+      leetcode题解1：两数之和 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%891%E5%BC%80%E9%9B%86"><span class="nav-text">定义1：开集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%861"><span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%862"><span class="nav-text">定理2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%892%E9%97%AD%E9%9B%86"><span class="nav-text">定义2：闭集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%863"><span class="nav-text">定理3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%893%E5%87%9D%E8%81%9A%E7%82%B9%E6%88%96%E6%9E%81%E9%99%90%E7%82%B9"><span class="nav-text">定义3：凝聚点或极限点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%894%E5%AF%BC%E9%9B%86%E5%92%8C%E9%97%AD%E5%8C%85"><span class="nav-text">定义4：导集和闭包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%864"><span class="nav-text">定理4</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%865"><span class="nav-text">定理5</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%866"><span class="nav-text">定理6</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%867"><span class="nav-text">定理7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%895%E8%BE%B9%E7%95%8C"><span class="nav-text">定义5：边界</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%896%E7%9B%B4%E5%BE%84"><span class="nav-text">定义6：直径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%868%E9%97%AD%E5%8C%BA%E9%97%B4%E5%A5%97%E5%AE%9A%E7%90%86"><span class="nav-text">定理8：闭区间套定理</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈华杰"
+      src="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+  <p class="site-author-name" itemprop="name">陈华杰</p>
+  <div class="site-description" itemprop="description">为天地立心，为生民立命，为往圣继绝学，为万世开太平</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gamersover" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gamersover" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈华杰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">500k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:34</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2b5e8584032528a65176',
+      clientSecret: '4a98c67c6337be0cd82b30d04699a4dcef47307c',
+      repo        : 'gamersover.github.io',
+      owner       : 'gamersover',
+      admin       : ['gamersover'],
+      id          : 'f4342efc113ef91fbccba88be1674e69',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

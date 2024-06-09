@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_logo_custom32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_logo_custom16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-rqJrmmkVwO">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+  </script>
+
+  <meta name="description" content="设开集\(D \subset \mathbb{R}^n\)，\(\boldsymbol{f}: D \to \mathbb{R}^m\)。记\(\boldsymbol{f}\)的分量依次为\(f_1,f_2,\cdots,f_m\)，可以把\(\boldsymbol{f}(\boldsymbol{x})\)写成 \[     \boldsymbol{f(x)} &#x3D; \left(         \">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数导数九：映射微分和复合求导">
+<meta property="og:url" content="http://yoursite.com/2021/04/11/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B09/index.html">
+<meta property="og:site_name" content="尘雨尘风">
+<meta property="og:description" content="设开集\(D \subset \mathbb{R}^n\)，\(\boldsymbol{f}: D \to \mathbb{R}^m\)。记\(\boldsymbol{f}\)的分量依次为\(f_1,f_2,\cdots,f_m\)，可以把\(\boldsymbol{f}(\boldsymbol{x})\)写成 \[     \boldsymbol{f(x)} &#x3D; \left(         \">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-11T14:30:39.000Z">
+<meta property="article:modified_time" content="2021-04-11T14:30:39.000Z">
+<meta property="article:author" content="陈华杰">
+<meta property="article:tag" content="数学分析">
+<meta property="article:tag" content="函数导数">
+<meta property="article:tag" content="微分">
+<meta property="article:tag" content="映射">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/11/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B09/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>函数导数九：映射微分和复合求导 | 尘雨尘风</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">尘雨尘风</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">数学与编程的爱好者</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">86</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">162</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/11/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B09/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          函数导数九：映射微分和复合求导
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-11 22:30:39" itemprop="dateCreated datePublished" datetime="2021-04-11T22:30:39+08:00">2021-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">数学</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>设开集<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>，<span class="math inline">\(\boldsymbol{f}: D \to
+\mathbb{R}^m\)</span>。记<span
+class="math inline">\(\boldsymbol{f}\)</span>的分量依次为<span
+class="math inline">\(f_1,f_2,\cdots,f_m\)</span>，可以把<span
+class="math inline">\(\boldsymbol{f}(\boldsymbol{x})\)</span>写成<br />
+<span class="math display">\[
+    \boldsymbol{f(x)} = \left(
+        \begin{matrix}
+            f_1(\boldsymbol{x}) \\
+            f_2(\boldsymbol{x}) \\
+            \vdots \\
+            f_m(\boldsymbol{x})
+        \end{matrix}
+    \right) \quad (\boldsymbol{x} \in D)
+\]</span><br />
+设点<span class="math inline">\(\boldsymbol{x}_0 \in D, \boldsymbol{h}
+\in \mathbb{R}^n\)</span>。由于<span
+class="math inline">\(\boldsymbol{x}_0\)</span>是<span
+class="math inline">\(D\)</span>的内点，所以总可以找到充分小的<span
+class="math inline">\(\Vert \boldsymbol{h} \Vert\)</span>使得<span
+class="math inline">\(\boldsymbol{x}_0 + \boldsymbol{h} \in
+D\)</span>。</p>
+<span id="more"></span>
+<h4 id="定义1">定义1</h4>
+<blockquote>
+<p>如果映射<span class="math inline">\(\boldsymbol{f}\)</span>满足<br />
+<span class="math display">\[
+    \boldsymbol{f}(\boldsymbol{x}_0 + \boldsymbol{h}) -
+\boldsymbol{f}(\boldsymbol{x}_0) = \boldsymbol{Ah} +
+\boldsymbol{r}(\boldsymbol{h})
+\]</span><br />
+式中<span class="math inline">\(\boldsymbol{A}\)</span>是一个<span
+class="math inline">\(m \times n\)</span>矩阵，它的元素不依赖于<span
+class="math inline">\(\boldsymbol{h}\)</span>，且<br />
+<span class="math display">\[
+    \lim \limits_{\boldsymbol{h} \to \boldsymbol{0}} \frac{\Vert
+\boldsymbol{r}(\boldsymbol{h}) \Vert}{\Vert \boldsymbol{h} \Vert} = 0
+\]</span><br />
+则称映射<span class="math inline">\(\boldsymbol{f}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处可微，并称<span
+class="math inline">\(\boldsymbol{Ah}\)</span>是<span
+class="math inline">\(\boldsymbol{f}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处的微分，记作<br />
+<span class="math display">\[
+    \mathrm{d}\boldsymbol{f}(\boldsymbol{x}_0) = \boldsymbol{Ah}
+\]</span></p>
+</blockquote>
+<h4 id="定理1">定理1</h4>
+<blockquote>
+<p>若映射<span class="math inline">\(\boldsymbol{f}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处可微，则有<br />
+<span class="math display">\[
+    \mathrm{d}\boldsymbol{f}(\boldsymbol{x}_0) =
+\boldsymbol{Jf}(\boldsymbol{x}_0)\boldsymbol{h}
+\]</span><br />
+其中<br />
+<span class="math display">\[
+    \boldsymbol{Jf}(\boldsymbol{x}_0) = \left[
+        \begin{matrix}
+            \frac{\partial f_1(\boldsymbol{x}_0)}{\partial x_1}  &amp;
+\cdots &amp; \frac{\partial f_1(\boldsymbol{x}_0)}{\partial x_n} \\
+            \vdots &amp; &amp; \vdots \\
+            \frac{\partial f_m(\boldsymbol{x}_0)}{\partial x_1}  &amp;
+\cdots &amp; \frac{\partial f_m(\boldsymbol{x}_0)}{\partial x_n}
+        \end{matrix}
+    \right]
+\]</span><br />
+称之为映射<span class="math inline">\(\boldsymbol{f}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处的Jacobi矩阵，也称为导数。</p>
+</blockquote>
+<p>证：有定义可知，<br />
+<span class="math display">\[
+    \boldsymbol{f}(\boldsymbol{x}_0 + \boldsymbol{h}) -
+\boldsymbol{f}(\boldsymbol{x}_0) = \boldsymbol{Ah} +
+\boldsymbol{r}(\boldsymbol{h})
+\]</span><br />
+设<br />
+<span class="math display">\[
+    \boldsymbol{A} = \left[\begin{matrix}
+        a_{11} &amp; \cdots &amp; a_{1n} \\
+        \vdots &amp; &amp; \vdots \\
+        a_{m1} &amp; \cdots &amp; a_{mn}
+    \end{matrix}\right]
+\]</span><br />
+将其代入上式中得<br />
+<span class="math display">\[
+    f_i(\boldsymbol{x}_0 + \boldsymbol{h}) - f_i(\boldsymbol{x}_0) =
+\sum_{j=1}^n a_{ij} h_j + r_i(\boldsymbol{h})
+\]</span><br />
+其中<span class="math inline">\(r_i(\boldsymbol{h})\)</span>表示<span
+class="math inline">\(\boldsymbol{r}(\boldsymbol{h})\)</span>的第<span
+class="math inline">\(i\)</span>个分量，由<span
+class="math inline">\(\boldsymbol{r}(\boldsymbol{h})\)</span>的性质可知<br />
+<span class="math display">\[
+    r_i(\boldsymbol{h}) = o(\Vert \boldsymbol{h} \Vert) \quad
+(\boldsymbol{h} \to 0, i=1,2,\cdots,m)
+\]</span><br />
+从而继续由<a
+target="_blank" rel="noopener" href="https://gamersover.github.io/2021/03/31/函数导数8/#定理1">函数导数八定理1</a>可知<br />
+<span class="math display">\[
+    a_{ij} = \frac{\partial f_i(\boldsymbol{x}_0)}{\partial x_j}
+(i=1,2,\cdots,m;j=1,2,\cdots,n)
+\]</span><br />
+从而得证。</p>
+<p>Q.E.D.</p>
+<h4 id="定理2">定理2</h4>
+<blockquote>
+<p>若映射<span class="math inline">\(\boldsymbol{f}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>的某一邻域内存在Jacobi矩阵<span
+class="math inline">\(\boldsymbol{Jf}\)</span>，且<span
+class="math inline">\(\boldsymbol{Jf}\)</span>的各元素在<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处都连续，则映射<span
+class="math inline">\(\boldsymbol{f}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处可微。</p>
+</blockquote>
+<p>证：由<a href="#定理1">定理1</a>与<a
+target="_blank" rel="noopener" href="https://gamersover.github.io/2021/03/31/函数导数8/#定理2">函数导数八的定理2</a>易证。</p>
+<p>Q.E.D.</p>
+<h4 id="定义2">定义2</h4>
+<blockquote>
+<p>设开集<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>，<span class="math inline">\(\boldsymbol{f}: D \to
+\mathbb{R}^m\)</span>。如果<span
+class="math inline">\(\boldsymbol{f}\)</span>在<span
+class="math inline">\(D\)</span>上的每一点处都连续，则记<span
+class="math inline">\(\boldsymbol{f} \in C(D)\)</span>；如果<span
+class="math inline">\(\boldsymbol{Jf}\)</span>在<span
+class="math inline">\(\boldsymbol{D}\)</span>上的每一点处都连续，则记<span
+class="math inline">\(\boldsymbol{f} \in C^1(D)\)</span>。</p>
+</blockquote>
+<h4 id="定理3">定理3</h4>
+<blockquote>
+<p>设开集<span class="math inline">\(D \subset
+\mathbb{R}^n\)</span>，<span class="math inline">\(\boldsymbol{g}: D \to
+\mathbb{R}^m\)</span>，<span
+class="math inline">\(\boldsymbol{g}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0 \in D\)</span>处可微，又设<span
+class="math inline">\(\boldsymbol{f}\)</span>把包含<span
+class="math inline">\(\boldsymbol{g}(D)\)</span>的一个开集映射至<span
+class="math inline">\(\mathbb{R}^l\)</span>，并且<span
+class="math inline">\(\boldsymbol{f}\)</span>在<span
+class="math inline">\(\boldsymbol{g}(\boldsymbol{x}_0)\)</span>处可微，那么复合映射<span
+class="math inline">\(\boldsymbol{f} \circ
+\boldsymbol{g}\)</span>在点<span
+class="math inline">\(\boldsymbol{x}_0\)</span>处可微，并且<br />
+<span class="math display">\[
+    \boldsymbol{J}(\boldsymbol{f}\circ \boldsymbol{g})(\boldsymbol{x}_0)
+= \boldsymbol{Jf}(\boldsymbol{g}(\boldsymbol{x}_0))
+\boldsymbol{Jg}(\boldsymbol{x}_0)
+\]</span></p>
+</blockquote>
+<p>证：令<span class="math inline">\(\boldsymbol{y}_0 =
+\boldsymbol{g}(\boldsymbol{x}_0)\)</span>，<span
+class="math inline">\(\boldsymbol{A} =
+\boldsymbol{Jf}(\boldsymbol{y}_0)，\boldsymbol{B} =
+\boldsymbol{Jg}(\boldsymbol{x}_0)\)</span>，易知<span
+class="math inline">\(\boldsymbol{A}\)</span>是<span
+class="math inline">\(l\times m\)</span>矩阵，<span
+class="math inline">\(\boldsymbol{B}\)</span>是<span
+class="math inline">\(m \times n\)</span>矩阵，从而若能证明<br />
+<span class="math display">\[
+    \lim \limits_{\Vert \boldsymbol{h} \Vert \to 0} \frac{\Vert
+(\boldsymbol{f} \circ \boldsymbol{g})(\boldsymbol{x}_0 + \boldsymbol{h})
+- (\boldsymbol{f} \circ \boldsymbol{g})(\boldsymbol{x}_0) -
+\boldsymbol{ABh} \Vert}{\Vert \boldsymbol{h} \Vert} = 0 \tag{1}
+\]</span><br />
+则由<a href="#定义1">定义1</a>可知，<span
+class="math inline">\(\boldsymbol{J}(\boldsymbol{f}\circ
+\boldsymbol{g})(\boldsymbol{x}_0) = \boldsymbol{AB}\)</span>。<br />
+由于<span
+class="math inline">\(\boldsymbol{g},\boldsymbol{f}\)</span>分别在<span
+class="math inline">\(\boldsymbol{x}_0,\boldsymbol{y}_0\)</span>处可微，从而有<br />
+<span class="math display">\[
+    \begin{aligned}
+    \boldsymbol{g}(\boldsymbol{x}_0 + \boldsymbol{h}) -
+\boldsymbol{g}(\boldsymbol{x}_0) = \boldsymbol{Bh} +
+\boldsymbol{u}(\boldsymbol{h}) \\
+    \boldsymbol{f}(\boldsymbol{y}_0 + \boldsymbol{k}) -
+\boldsymbol{f}(\boldsymbol{y}_0) = \boldsymbol{Ak} +
+\boldsymbol{v}(\boldsymbol{k})
+    \end{aligned} \tag{2}
+\]</span><br />
+其中<span
+class="math inline">\(\boldsymbol{h}，\boldsymbol{k}\)</span>分别为<span
+class="math inline">\(n \times 1\)</span>矩阵和<span
+class="math inline">\(m \times 1\)</span>矩阵，且<br />
+<span class="math display">\[
+    \begin{aligned}
+        \frac{\Vert \boldsymbol{u}(\boldsymbol{h}) \Vert}{\Vert
+\boldsymbol{h} \Vert} \to 0 \quad (\Vert \boldsymbol{h} \Vert \to 0) \\
+        \frac{\Vert \boldsymbol{v}(\boldsymbol{k}) \Vert}{\Vert
+\boldsymbol{k} \Vert} \to 0 \quad (\Vert \boldsymbol{k} \Vert \to 0)
+    \end{aligned}
+\]</span><br />
+记<br />
+<span class="math display">\[
+    \frac{\Vert \boldsymbol{u}(\boldsymbol{h}) \Vert}{\Vert
+\boldsymbol{h} \Vert} = \varepsilon(\boldsymbol{h})， \quad \frac{\Vert
+\boldsymbol{v}(\boldsymbol{h}) \Vert}{\Vert \boldsymbol{h} \Vert} =
+\eta(\boldsymbol{h})
+\]</span><br />
+则<br />
+<span class="math display">\[
+    \Vert \boldsymbol{u}(\boldsymbol{h}) \Vert =
+\varepsilon(\boldsymbol{h}) \Vert \boldsymbol{h} \Vert， \quad \Vert
+\boldsymbol{v}(\boldsymbol{k}) \Vert = \eta(\boldsymbol{k}) \Vert
+\boldsymbol{k} \Vert
+\]</span><br />
+且<br />
+<span class="math display">\[
+    \lim \limits_{\Vert \boldsymbol{h} \Vert \to 0}
+\varepsilon(\boldsymbol{h}) = 0， \quad \lim \limits_{\Vert
+\boldsymbol{k} \Vert \to 0} \eta(\boldsymbol{k}) = 0 \tag{3}
+\]</span><br />
+对给定的<span class="math inline">\(\boldsymbol{h}\)</span>，令<span
+class="math inline">\(\boldsymbol{k} = \boldsymbol{g}(\boldsymbol{x}_0 +
+\boldsymbol{h}) -
+\boldsymbol{g}(\boldsymbol{x}_0)\)</span>，由式(2)可得<br />
+<span class="math display">\[
+    \Vert \boldsymbol{k} \Vert \le \Vert \boldsymbol{Bh} \Vert + \Vert
+\boldsymbol{u}(\boldsymbol{h})\Vert \le (\Vert \boldsymbol{B} \Vert +
+\varepsilon(\boldsymbol{h})) \Vert \boldsymbol{h} \Vert
+\]</span><br />
+从而有<br />
+<span class="math display">\[
+    \begin{aligned}
+        &amp; \Vert \boldsymbol{f} \circ \boldsymbol{g}
+(\boldsymbol{x}_0 + \boldsymbol{h}) - \boldsymbol{f} \circ
+\boldsymbol{g} (\boldsymbol{x}_0) - \boldsymbol{ABh} \Vert \\
+        &amp; = \Vert \boldsymbol{f}(\boldsymbol{g} (\boldsymbol{x}_0 +
+\boldsymbol{h})) - \boldsymbol{f}(\boldsymbol{g} (\boldsymbol{x}_0)) -
+\boldsymbol{ABh} \Vert \\
+        &amp; = \Vert \boldsymbol{f}(\boldsymbol{y}_0 + \boldsymbol{k})
+- \boldsymbol{f}(\boldsymbol{y}_0) - \boldsymbol{ABh} \Vert \\
+        &amp; = \Vert \boldsymbol{Ak} + \boldsymbol{v}(\boldsymbol{k}) -
+\boldsymbol{ABh} \Vert \\
+        &amp; = \Vert \boldsymbol{A}(\boldsymbol{k} - \boldsymbol{Bh}) +
+\boldsymbol{v}{\boldsymbol{k}} \Vert \\
+        &amp; \le \Vert \boldsymbol{A} \Vert u(\boldsymbol{h}) +
+\eta(\boldsymbol{k})\Vert \boldsymbol{k} \Vert \\
+        &amp; \le \Vert \boldsymbol{A} \Vert \varepsilon(\boldsymbol{h})
+\Vert \boldsymbol{h} \Vert + \eta(\boldsymbol{k})(\Vert \boldsymbol{B}
+\Vert + \varepsilon(\boldsymbol{h})) \Vert \boldsymbol{h} \Vert
+    \end{aligned}
+\]</span><br />
+所以<br />
+<span class="math display">\[
+    \frac{\Vert (\boldsymbol{f} \circ \boldsymbol{g})(\boldsymbol{x}_0 +
+\boldsymbol{h}) - (\boldsymbol{f} \circ
+\boldsymbol{g})(\boldsymbol{x}_0) - \boldsymbol{ABh} \Vert}{\Vert
+\boldsymbol{h} \Vert} \le \Vert \boldsymbol{A} \Vert
+\varepsilon(\boldsymbol{h}) + \eta(\boldsymbol{k})(\Vert \boldsymbol{B}
+\Vert + \varepsilon(\boldsymbol{h}))
+\]</span><br />
+再由式(3)可知式(1)成立。</p>
+<p>Q.E.D.</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/13/函数导数10/" rel="bookmark">函数导数十：隐函数、隐映射定理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/19/函数导数11/" rel="bookmark">函数导数十一：逆映射定理</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/04/21/函数导数12/" rel="bookmark">函数导数十二：高阶偏导数和Taylor公式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/03/16/函数导数6/" rel="bookmark">函数导数六：函数的微分</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2021/03/31/函数导数8/" rel="bookmark">函数导数八：多变量函数的微分</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E5%AD%A6%E5%88%86%E6%9E%90/" rel="tag"><i class="fa fa-tag"></i> 数学分析</a>
+              <a href="/tags/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B0/" rel="tag"><i class="fa fa-tag"></i> 函数导数</a>
+              <a href="/tags/%E5%BE%AE%E5%88%86/" rel="tag"><i class="fa fa-tag"></i> 微分</a>
+              <a href="/tags/%E6%98%A0%E5%B0%84/" rel="tag"><i class="fa fa-tag"></i> 映射</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/05/leetcode%E9%A2%98%E8%A7%A322/" rel="prev" title="leetcode题解22：括号生成">
+      <i class="fa fa-chevron-left"></i> leetcode题解22：括号生成
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/13/%E5%87%BD%E6%95%B0%E5%AF%BC%E6%95%B010/" rel="next" title="函数导数十：隐函数、隐映射定理">
+      函数导数十：隐函数、隐映射定理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%891"><span class="nav-text">定义1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%861"><span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%862"><span class="nav-text">定理2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%892"><span class="nav-text">定义2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E7%90%863"><span class="nav-text">定理3</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈华杰"
+      src="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+  <p class="site-author-name" itemprop="name">陈华杰</p>
+  <div class="site-description" itemprop="description">为天地立心，为生民立命，为往圣继绝学，为万世开太平</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">162</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">86</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gamersover" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gamersover" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈华杰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">500k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:34</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2b5e8584032528a65176',
+      clientSecret: '4a98c67c6337be0cd82b30d04699a4dcef47307c',
+      repo        : 'gamersover.github.io',
+      owner       : 'gamersover',
+      admin       : ['gamersover'],
+      id          : 'f00540a86fd142656ecc59c39a620020',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
