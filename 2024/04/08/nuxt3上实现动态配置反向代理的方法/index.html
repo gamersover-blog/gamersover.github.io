@@ -19,13 +19,13 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+    var CONFIG = {"hostname":"blog.caoqinping.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
   </script>
 
   <meta name="description" content="场景 实现一个本地LLM前端Chat界面，使用Ollama部署本地LLM。基本功能：在前端设置模型的服务地址如http:&#x2F;&#x2F;localhost:11434，由于浏览器存在跨域问题，所以必须采用一些方法来解决该问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nuxt3上实现动态配置反向代理的方法">
-<meta property="og:url" content="http://yoursite.com/2024/04/08/nuxt3%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:url" content="https://blog.caoqinping.com/2024/04/08/nuxt3%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="尘雨尘风">
 <meta property="og:description" content="场景 实现一个本地LLM前端Chat界面，使用Ollama部署本地LLM。基本功能：在前端设置模型的服务地址如http:&#x2F;&#x2F;localhost:11434，由于浏览器存在跨域问题，所以必须采用一些方法来解决该问题。">
 <meta property="og:locale" content="zh_CN">
@@ -38,7 +38,7 @@
 <meta property="article:tag" content="反向代理">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2024/04/08/nuxt3%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/">
+<link rel="canonical" href="https://blog.caoqinping.com/2024/04/08/nuxt3%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/">
 
 
 <script id="page-configurations">
@@ -201,7 +201,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/04/08/nuxt3%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/">
+    <link itemprop="mainEntityOfPage" href="https://blog.caoqinping.com/2024/04/08/nuxt3%E4%B8%8A%E5%AE%9E%E7%8E%B0%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
