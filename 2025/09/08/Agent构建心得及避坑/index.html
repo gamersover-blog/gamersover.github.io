@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_logo_custom32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_logo_custom16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-rqJrmmkVwO">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.caoqinping.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+  </script>
+
+  <meta name="description" content="随着模型在工具调用能力上的提升，Agent也成为当前最热门的方向之一。本文结合个人的实践，分享一些Agent构建的心得及避坑经验。 一、选择合适的模型 截止2025年9月，市面上已经有多款支持长上下文和工具调用能力的开源大模型，闭源的有GPT-5 Cluade-Sonnet-4等，开源的有Qwen3、Kimi-K2 Deepseek-V3.1等。那么如何选择合适的模型呢？这里有几个建议： 慎用Re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agent构建心得及避坑">
+<meta property="og:url" content="https://blog.caoqinping.com/2025/09/08/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91/index.html">
+<meta property="og:site_name" content="尘雨尘风">
+<meta property="og:description" content="随着模型在工具调用能力上的提升，Agent也成为当前最热门的方向之一。本文结合个人的实践，分享一些Agent构建的心得及避坑经验。 一、选择合适的模型 截止2025年9月，市面上已经有多款支持长上下文和工具调用能力的开源大模型，闭源的有GPT-5 Cluade-Sonnet-4等，开源的有Qwen3、Kimi-K2 Deepseek-V3.1等。那么如何选择合适的模型呢？这里有几个建议： 慎用Re">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-09-08T10:43:01.000Z">
+<meta property="article:modified_time" content="2025-09-08T10:43:01.000Z">
+<meta property="article:author" content="陈华杰">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="LLM">
+<meta property="article:tag" content="Agent">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.caoqinping.com/2025/09/08/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Agent构建心得及避坑 | 尘雨尘风</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">尘雨尘风</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">数学与编程的爱好者</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">87</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">163</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.caoqinping.com/2025/09/08/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Agent构建心得及避坑
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-09-08 18:43:01" itemprop="dateCreated datePublished" datetime="2025-09-08T18:43:01+08:00">2025-09-08</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>随着模型在工具调用能力上的提升，Agent也成为当前最热门的方向之一。本文结合个人的实践，分享一些Agent构建的心得及避坑经验。</p>
+<h1 id="一选择合适的模型">一、选择合适的模型</h1>
+<p>截止2025年9月，市面上已经有多款支持长上下文和工具调用能力的开源大模型，闭源的有GPT-5
+Cluade-Sonnet-4等，开源的有Qwen3、Kimi-K2
+Deepseek-V3.1等。那么如何选择合适的模型呢？这里有几个建议：</p>
+<h2 id="慎用reasoning模型">慎用Reasoning模型</h2>
+<p>可能大家会觉得很奇怪，明明推理模型能力更强，为什么不建议使用呢？目前的推理模型的能力强主要体现在数学推理、逻辑推理。对于需要多步执行的Agent任务，推理模型并不一定表现更好。而不推荐用推理模型也主要有以下几个原因：<br />
+1.
+推理模型容易陷入过度思考，而Agent更多需要使用工具获取更多上下文，从而决定下一步的行动。如果模型过度思考，反而会忽略使用工具去获取外部知识。<br />
+2.
+推理模型延迟高，推理模型需要思考token，导致每次调用的延迟较高，而Agent通常需要多次调用模型，延迟高会严重影响用户体验，并导致任务运行时间过长。</p>
+<h2 id="模型推荐">模型推荐</h2>
+<p>所以比较推荐非思考模型如kimi-k2、claude-sonnet-4-no-thinking等，当然混合推理模型也可以考虑，比如glm4.5。如果不考虑成本，当前最好的Agent模型依然是Claude。</p>
+<h1 id="二prompt撰写由简入繁">二、Prompt撰写：由简入繁</h1>
+<p>Prompt的撰写是Agent构建中非常重要的一环，好的Prompt可以大幅提升Agent的性能。提示词应该保持简单明了，原因在于：<br />
+1.
+随着模型的能力越来越强，提示词工程也越来越弱化，很多时候只需要简单的指令即可完成复杂的任务。<br />
+2.
+复杂的提示词容易导致模型理解偏差，反而影响性能。比如过于详细复杂的步骤描述，对于需要灵活应对多变场景的Agent来说，反而不利于发挥模型的能力。<br />
+3. 过长的提示词会占用大量上下文，推理延迟高。</p>
+<p>所以建议从简单的提示词开始，逐步增加复杂度，观察Agent效果，继续调整。</p>
+<h2 id="提示词模板">提示词模板</h2>
+<p>这里也提供一个常用的Prompt模板，供大家参考：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">role</span>&gt;</span></span><br><span class="line">角色定义</span><br><span class="line"><span class="tag">&lt;/<span class="name">role</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">task</span>&gt;</span></span><br><span class="line">任务描述</span><br><span class="line"><span class="tag">&lt;/<span class="name">task</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">tools</span>&gt;</span></span><br><span class="line">工具使用说明</span><br><span class="line"><span class="tag">&lt;/<span class="name">tools</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">output_format</span>&gt;</span></span><br><span class="line">输出格式定义</span><br><span class="line"><span class="tag">&lt;/<span class="name">output_format</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">note</span>&gt;</span></span><br><span class="line">注意事项</span><br><span class="line"><span class="tag">&lt;/<span class="name">note</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="少用fewshot和manyshot">少用fewshot和manyshot</h2>
+<p>当前大模型的能力已经非常强，对于大部分任务，fewshot和manyshot并不能带来显著提升，反而会占用大量上下文，增加推理延迟。所以建议少用fewshot和manyshot，更多依赖模型的理解能力。只有在测试过程中发现，模型对某些任务表现不佳时，才考虑加入fewshot。</p>
+<h2 id="多参考官方提示词技巧">多参考官方提示词技巧</h2>
+<p>大模型厂商通常会提供一些官方的提示词技巧和示例，建议多参考这些资源，结合自己的任务进行调整。比如<a
+target="_blank" rel="noopener" href="https://cookbook.openai.com/examples/gpt-5/gpt-5_prompting_guide">OpenAI</a>、<a
+target="_blank" rel="noopener" href="https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview">Anthropic</a>等都提供了丰富的提示词资源。</p>
+<p>比如Anthropic关于Claude 4的工具并行调用的提示词：<br />
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">For</span> maximum efficiency, whenever you need <span class="keyword">to</span> <span class="keyword">perform</span> multiple independent operations, invoke <span class="keyword">all</span> relevant tools simultaneously rather than sequentially.</span><br></pre></td></tr></table></figure></p>
+<h1 id="三工具设计">三、工具设计</h1>
+<p>Agent的核心在于工具的设计，工具设计的好坏直接影响Agent的性能。工具大致可以分为三类：<br />
+1. 提供相关上下文的工具：如搜索引擎、知识库，数据库查询等，<br />
+1. 执行类工具：如计算器、代码执行环境等，<br />
+2. 任务类工具：如规划工具，思考工具等。</p>
+<h2 id="错误信息是非常重要的上下文">错误信息是非常重要的上下文</h2>
+<p>很多人在设计Agent时，有几个错觉：<br />
+1. 希望Agent能够完美地使用工具，不能出现明显的错误，<br />
+2. 不断的添加提示词，告诉模型如何正确使用工具。</p>
+<p>特别是第二点，有时候无论如何添加提示词，模型依然会犯错。其实是大家忽略了工具的错误处理。实际上，工具在实际使用中，难免会出现各种错误，比如网络异常、数据异常等。所以在设计工具时，一定要明确工具的错误处理机制。比如生成sql查询时，可能会出现语法错误，工具需要能够捕获这些错误，并返回给Agent，从而Agent能够不断调整语法，直到正确为止。</p>
+<p>还有一部分人在使用API调用外部服务的工具时，会直接返回错误码，不告诉模型具体的错误信息。从而导致模型无法正确处理错误，无法根据错误信息进行调整。</p>
+<h2 id="使用规划类工具的时机">使用规划类工具的时机</h2>
+<p>对于Manus和Claude
+Code等产品都内置了规划类（TODO）工具，以帮助Agent更好地组织任务。规划类工具确实可以帮助Agent更好地组织任务，提升准确率。但是并不是所有场景都适合使用规划类工具。一般来说，以下几种情况适合使用规划类工具：<br />
+1. 任务复杂，包含多个子任务，需要有序执行，<br />
+2. 任务步骤明确，可以预先规划好执行顺序，</p>
+<p>而对于那些步骤不明确，或者需要灵活应对的任务，规划类工具反而会增加复杂度，影响性能。原因在于：<br />
+1.
+不明确的任务，对于人来说，也无法一次性规划好所有步骤，模型也一样。<br />
+2.
+如果生成了规划，模型会过度依赖之前的规划路径来执行，而对于灵活应对的任务，需要根据工具返回结果决定下一步的行动，规划反而会限制模型的灵活性。让模型归于僵化。</p>
+<p>所以建议在使用规划类工具时，先评估任务的复杂度和明确度，选择合适的场景使用。对于那些不适合使用规划类工具的任务，可以考虑添加更新任务的工具，帮助模型动态调整任务。但是从实际经验来看，模型不会倾向于使用更新任务的工具，反而会继续执行之前的任务。</p>
+<blockquote>
+<p>有时使用模型的内在规划能力，反而效果更好。</p>
+</blockquote>
+<h1 id="四多agent协作">四、多Agent协作</h1>
+多Agent协作是当前比较热门的方向，多个Agent可以协同工作，完成复杂任务。多Agent协作有以下几种模式：<br />
+1.
+路由模式：使用一个路由模型，根据任务类型，选择合适的Agent来处理任务<br />
+
+<pre class="mermaid">graph LR
+    A[用户请求] --> B[路由模型]
+    B --> C{任务类型}
+    C -->|类型A| D[Agent A]
+    C -->|类型B| E[Agent B]
+    D --> F[结果]
+    E --> F[结果]</pre>
+<ol start="2" type="1">
+<li>流水线模式：多个Agent按顺序处理任务，每个Agent负责一个子任务<br />
+
+<pre class="mermaid">graph LR
+ A[用户请求] --> B[Agent 1]
+ B --> C[Agent 2]
+ C --> D[Agent 3]
+ D --> E[结果]</pre></li>
+<li>协同模式：多个Agent同时处理任务，互相协作完成任务<br />
+
+<pre class="mermaid">graph LR
+ A[用户请求] --> B[Agent 1]
+ A --> C[Agent 2]
+ B --> D[结果]
+ C --> D[结果]</pre></li>
+</ol>
+<h2 id="多agent优势">多Agent优势</h2>
+<ol type="1">
+<li>专业化：每个Agent可以专注于某一领域，提升专业能力</li>
+<li>可扩展性：可以方便地添加新的Agent，扩展系统能力</li>
+<li>上下文管理：每个Agent可以有独立的上下文，避免单个Agent上下文过长</li>
+</ol>
+<h2 id="什么时候使用多agent">什么时候使用多Agent</h2>
+<p>其实我也看到不少文章批评多Agent架构，认为其复杂度过高，调试困难，性能不如单Agent。多Agent确实不适合所有场景，但是对于一些场景，多Agent架构确实有其优势。比如：<br />
+1.
+任务复杂但职责明确，比如需要查询和分析多个不同产品的日志，如果使用单个Agent，会导致提示词非常复杂，且容易混淆模型，导致出错；当使用多Agent时，可以让每个Agent专注于某一产品的日志查询和分析，提升准确率。<br />
+2.
+任务上下文长，还是以日志分析为例，一般日志量非常大，如果将日志查询的结果全部放入单个Agent，会导致上下文过程，导致模型性能下降，甚至无法处理。</p>
+<blockquote>
+<p>个人认为，未来多Agent并行协作依然会成为主流。</p>
+</blockquote>
+<h1 id="五调试与监控">五、调试与监控</h1>
+<p>Agent的调试和监控是非常重要的环节，好的调试和监控可以帮助我们快速定位问题，提升系统稳定性。这里有几个建议：<br />
+1.
+日志记录：详细记录每次Agent的调用，包括输入、输出、工具调用等，方便后续分析<br />
+2. 性能监控：监控Agent的响应时间、错误率等指标，及时发现问题<br />
+3.
+自动化测试：为Agent设计自动化测试用例，确保每次更新不会引入新的问题<br />
+4. 用户反馈：收集用户反馈，了解Agent在实际使用中的表现，持续优化</p>
+<h1 id="六总结">六、总结</h1>
+<p>Agent构建是一个复杂但有趣的过程，涉及模型选择、Prompt撰写、工具设计、多Agent协作以及调试与监控等多个环节。当然以个人的经验可能并不全面，希望本文的分享能够帮助大家更好地理解和构建Agent系统，避免一些常见的坑。</p>
+<h1 id="七展望">七、展望</h1>
+<p>可以想象，未来随着大模型能力的提升，算力的提升，一个Agent可以在几分钟，甚至几秒内就完成一个碳基生物需要几个小时甚至几天才能完成的任务。而且Agent可以复制，可以并行执行，可以无时无刻不在工作。未来的Agent可能会彻底改变我们的工作和生活方式。这是一件令人兴奋同时又令人恐惧的事情。</p>
+<p>希望大家都能在这个过程中，找到自己的位置，共同迎接这个充满挑战和机遇的时代。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2024/01/05/LLM工具大全/" rel="bookmark">LLM工具大全</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2024/04/14/大模型领域跟踪/" rel="bookmark">大模型领域跟踪</a></div>
+    </li>
+  </ul>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/AI/" rel="tag"><i class="fa fa-tag"></i> AI</a>
+              <a href="/tags/LLM/" rel="tag"><i class="fa fa-tag"></i> LLM</a>
+              <a href="/tags/Agent/" rel="tag"><i class="fa fa-tag"></i> Agent</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/14/%E5%A4%A7%E6%A8%A1%E5%9E%8B%E9%A2%86%E5%9F%9F%E8%B7%9F%E8%B8%AA/" rel="prev" title="大模型领域跟踪">
+      <i class="fa fa-chevron-left"></i> 大模型领域跟踪
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="nav-text">一、选择合适的模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%85%8E%E7%94%A8reasoning%E6%A8%A1%E5%9E%8B"><span class="nav-text">慎用Reasoning模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9E%8B%E6%8E%A8%E8%8D%90"><span class="nav-text">模型推荐</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8Cprompt%E6%92%B0%E5%86%99%E7%94%B1%E7%AE%80%E5%85%A5%E7%B9%81"><span class="nav-text">二、Prompt撰写：由简入繁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%A8%A1%E6%9D%BF"><span class="nav-text">提示词模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%91%E7%94%A8fewshot%E5%92%8Cmanyshot"><span class="nav-text">少用fewshot和manyshot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E5%8F%82%E8%80%83%E5%AE%98%E6%96%B9%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%8A%80%E5%B7%A7"><span class="nav-text">多参考官方提示词技巧</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%B7%A5%E5%85%B7%E8%AE%BE%E8%AE%A1"><span class="nav-text">三、工具设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E6%98%AF%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="nav-text">错误信息是非常重要的上下文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%84%E5%88%92%E7%B1%BB%E5%B7%A5%E5%85%B7%E7%9A%84%E6%97%B6%E6%9C%BA"><span class="nav-text">使用规划类工具的时机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E5%A4%9Aagent%E5%8D%8F%E4%BD%9C"><span class="nav-text">四、多Agent协作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9Aagent%E4%BC%98%E5%8A%BF"><span class="nav-text">多Agent优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8%E5%A4%9Aagent"><span class="nav-text">什么时候使用多Agent</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E8%B0%83%E8%AF%95%E4%B8%8E%E7%9B%91%E6%8E%A7"><span class="nav-text">五、调试与监控</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E6%80%BB%E7%BB%93"><span class="nav-text">六、总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E5%B1%95%E6%9C%9B"><span class="nav-text">七、展望</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈华杰"
+      src="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+  <p class="site-author-name" itemprop="name">陈华杰</p>
+  <div class="site-description" itemprop="description">为天地立心，为生民立命，为往圣继绝学，为万世开太平</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">163</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gamersover" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gamersover" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈华杰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">504k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:38</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2b5e8584032528a65176',
+      clientSecret: '4a98c67c6337be0cd82b30d04699a4dcef47307c',
+      repo        : 'gamersover.github.io',
+      owner       : 'gamersover',
+      admin       : ['gamersover'],
+      id          : '3f7facf7cc4dd8992b8afd7653ac349b',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
