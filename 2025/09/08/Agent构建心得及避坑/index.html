@@ -321,27 +321,27 @@ Code等产品都内置了规划类（TODO）工具，以帮助Agent更好地组�
 <ol type="1">
 <li>路由模式：使用一个路由模型，根据任务类型，选择合适的Agent来处理任务<br />
 
-<pre class="mermaid">    graph LR
-     A[用户请求] --> B[路由模型]
-     B --> C{任务类型}
-     C -->|类型A| D[Agent A]
-     C -->|类型B| E[Agent B]
-     D --> F[结果]
-     E --> F[结果]</pre></li>
+<pre class="mermaid">graph LR
+ A[用户请求] --> B[路由模型]
+ B --> C{任务类型}
+ C -->|类型A| D[Agent A]
+ C -->|类型B| E[Agent B]
+ D --> F[结果]
+ E --> F[结果]</pre></li>
 <li>流水线模式：多个Agent按顺序处理任务，每个Agent负责一个子任务<br />
 
-<pre class="mermaid">    graph LR
-     A[用户请求] --> B[Agent 1]
-     B --> C[Agent 2]
-     C --> D[Agent 3]
-     D --> E[结果]</pre></li>
+<pre class="mermaid">graph LR
+ A[用户请求] --> B[Agent 1]
+ B --> C[Agent 2]
+ C --> D[Agent 3]
+ D --> E[结果]</pre></li>
 <li>协同模式：多个Agent同时处理任务，互相协作完成任务<br />
 
-<pre class="mermaid">    graph LR
-     A[用户请求] --> B[Agent 1]
-     A --> C[Agent 2]
-     B --> D[结果]
-     C --> D[结果]</pre></li>
+<pre class="mermaid">graph LR
+ A[用户请求] --> B[Agent 1]
+ A --> C[Agent 2]
+ B --> D[结果]
+ C --> D[结果]</pre></li>
 </ol>
 <h2 id="多agent优势">多Agent优势</h2>
 <ol type="1">
