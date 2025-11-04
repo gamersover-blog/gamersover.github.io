@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/website_logo_custom32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/website_logo_custom16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="baidu-site-verification" content="codeva-rqJrmmkVwO">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.caoqinping.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","width":320,"display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"gitalk","storage":true,"lazyload":false,"nav":{"gitalk":{"order":-2}},"activeClass":"gitalk"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./search.xml"};
+  </script>
+
+  <meta name="description" content="继续Agent的话题，开一个（三）来讨论讨论工具调用吧 工具调用能干什么 首先通用的定义：工具调用（Tool Calling）是指大模型通过调用外部工具或API来获取信息、执行任务或进行计算的能力。工具调用可以极大地扩展模型的功能，使其能够处理更复杂的任务。 自然很多开发者都认为工具调用就是让模型获取外部数据，比如天气、股票等信息。但其实工具调用的作用远不止于此，工具调用的本质是给模型注入工具的定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agent构建心得及避坑(三)">
+<meta property="og:url" content="https://blog.caoqinping.com/2025/11/04/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91-%E4%B8%89/index.html">
+<meta property="og:site_name" content="尘雨尘风">
+<meta property="og:description" content="继续Agent的话题，开一个（三）来讨论讨论工具调用吧 工具调用能干什么 首先通用的定义：工具调用（Tool Calling）是指大模型通过调用外部工具或API来获取信息、执行任务或进行计算的能力。工具调用可以极大地扩展模型的功能，使其能够处理更复杂的任务。 自然很多开发者都认为工具调用就是让模型获取外部数据，比如天气、股票等信息。但其实工具调用的作用远不止于此，工具调用的本质是给模型注入工具的定">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-11-04T14:04:20.000Z">
+<meta property="article:modified_time" content="2025-11-04T14:04:20.000Z">
+<meta property="article:author" content="陈华杰">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.caoqinping.com/2025/11/04/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91-%E4%B8%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Agent构建心得及避坑(三) | 尘雨尘风</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">尘雨尘风</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">数学与编程的爱好者</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">87</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.caoqinping.com/2025/11/04/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91-%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Agent构建心得及避坑(三)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-11-04 22:04:20" itemprop="dateCreated datePublished" datetime="2025-11-04T22:04:20+08:00">2025-11-04</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>继续Agent的话题，开一个（三）来讨论讨论工具调用吧</p>
+<h1 id="工具调用能干什么">工具调用能干什么</h1>
+<p>首先通用的定义：工具调用（Tool
+Calling）是指大模型通过调用外部工具或API来获取信息、执行任务或进行计算的能力。工具调用可以极大地扩展模型的功能，使其能够处理更复杂的任务。</p>
+<p>自然很多开发者都认为工具调用就是让模型获取外部数据，比如天气、股票等信息。但其实工具调用的作用远不止于此，工具调用的本质是给模型注入工具的定义（名称、描述、参数等），让模型生成一个<strong>结构化</strong>的数据。</p>
+<p>我觉得上面这个定义才是工具调用的核心。因为结构化数据可以表示很多东西，不仅仅是获取外部数据。下面我来介绍几个特别工具调用的作用。</p>
+<h2 id="工具调用能解决幻觉">工具调用能解决幻觉</h2>
+<p>幻觉是怎么产生的？主要原因在于模型的训练数据有限，模型只能基于已有的数据进行推理和生成。当模型遇到未知的问题或需要精确的信息时，往往会凭空编造答案，从而产生幻觉。</p>
+<p>那怎么解决幻觉呢？最有效的方法就是让模型调用外部的工具或API，获取准确的信息。</p>
+<p>比如对于企业内部的知识库查询，模型本身并不具备企业的内部知识，但通过调用知识库查询工具，模型可以获取到准确的答案，从而避免幻觉的产生。再比如时间这个概念，模型本身并不具备实时的时间信息，在训练数据中模型的时间是早于当前时间的，对于时间敏感的任务，模型很容易产生幻觉，给出错误的时间信息，导致Agent执行错误的操作。但通过调用时间查询工具，模型可以获取到当前的时间，从而避免幻觉。</p>
+<h2 id="工具调用能控制工作流">工具调用能控制工作流</h2>
+<p>典型的TODO工具就是一个工作流控制工具。模型通过调用TODO工具，可以将任务拆解为多个子任务，并按照一定的顺序执行这些子任务，从而实现复杂的工作流。</p>
+<p>再比如你希望Agent最终输出一个可以解析的报告，而不用使用正则从模型输出的文本中去提取相应内容。这时候你就可以定义一个生成报告的工具，工具的参数就是报告的结构化内容。模型通过调用这个工具，生成结构化的报告内容。因为工具的参数本来就是结构化的。在这之前甚至现在还是有许多开发者是在Prompt里定义xml或json的格式，让模型输出；其实Agent模型都有工具调用能力，原生的就支持结构化输出，直接定义工具调用就行了。</p>
+<h2 id="工具能让模型听话">工具能让模型听话</h2>
+<p>如果大家写过提示词，做过Prompt
+Engineering的时候就会发现，模型有时候会不听话，明明提示词里说了不要做某事，模型还是会去做。这个问题其实是很难解决的，尤其是当提示词比较复杂的时候，模型更容易忽略一些细节要求。</p>
+<p>上面的问题是一个非常常见的问题，在社交媒体（X等）上经常能看到类似的Prompt
+Engineering的讨论。比如：提示词应该写让模型干什么，而不是写让模型不干什么。但是有时候在设计Agent的时候，确实需要让模型不去做某事。<br />
+我在设计Agent的时候就经常遇到这种问题，比如我写提示词<br />
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">note</span>&gt;</span><br><span class="line">1. <span class="keyword">DO</span> NOT xxx</span><br><span class="line">2. NEVER <span class="keyword">use</span> xxx</span><br><span class="line">3. 你不能做 xxx</span><br><span class="line">&lt;/<span class="keyword">note</span>&gt;</span><br></pre></td></tr></table></figure><br />
+结果发现无论怎么调整提示词，模型还是会去做xxx。这个问题其实是很难通过提示词来解决的。</p>
+<p>再举个例子，有一些企业内部的名词，在使用websearch工具的时候，往往是搜索不到的甚至是错误的。但同时你无论怎么在提示词里强调不要使用websearch工具去检索企业内部相关名词，模型还是会去使用，导致错误的结果。这时你就可以通过定义工具调用的方式，来让模型听话。比如定义一个叫<code>internal_search</code>的工具，专门用来检索企业内部名词。然后在提示词里告诉模型，所有企业内部名词都必须使用<code>internal_search</code>工具去检索，不能使用websearch工具。这样模型就会遵守这个规则，避免使用错误的工具。</p>
+<p>上面只是一个例子，实际上你可以构造一个输出内容为<code>没有内容</code>的工具（理解为假的工具），然后告诉模型在某些情况下必须调用这个工具。这样就把DO
+NOT改成了 MUST CALL，从而让模型听话。</p>
+<h2
+id="工具调用可以让非思考模型变成思考模型">工具调用可以让非思考模型变成思考模型</h2>
+<p>思考模型（Reasoning
+Model）是指具备多步推理和复杂问题解决能力的模型。相比之下，非思考模型（Non-Reasoning
+Model）则缺乏这种能力，通常只能处理简单的任务。</p>
+<p>确实，思考模型的能力通常更强大，但是延迟更高。我们理想的模型是能够根据任务的复杂度，动态调整思考能力。对于简单任务，比如hello，应该就不需要思考，直接给出答案即可；而对于复杂任务，比如多步推理、复杂计算等，则需要启用思考能力，进行多步推理和计算。这种我们成为<code>混合思考模型</code>。</p>
+<p>而现在没有比较好的混合思考模型（除了glm4.5/4.6），比如o3/GPT-5是无法关闭思考能力的，而且openai给出的方案是使用一个路由模型来决定后端使用什么模型来回答用户问题，这样看起来是一个混合思考模型的方案。再比如Claude
+Deepseek
+Qwen只能通过静态设置来决定是否启用思考能力和思考token数，也无法实现正真的混合思考。</p>
+<p>实际上我个人认为Openai开创的思考模型o1的思路是错误的；思考其实是模型的推理能力，这个应该是模型本身内生的能力，对于非思考模型来说，虽然是直接输出非思考token，但是这也是模型推理的一部分，thinking过程只是模型推理的一种方式而已。也许就不应该把思考和非思考模型区分开来。</p>
+<p>比如说Agent任务，模型在接收到工具的结果后输出：好的，我看到已经返回了结果，这不是一个xxx,
+接下来我需要去xxx；那么这个过程其实也是模型在思考，只不过这种思考不是通过thinking
+token来实现的，而是传统的非思考模型的输出的答案token。</p>
+<p>那怎么让非思考模型具备像o1这种长的思维链呢？其实很简单，就是通过一个<code>Thought</code>工具来实现，这也是Claude曾经提出过的一个工具，<code>Thought</code>工具。这个工具没有实际的功能，只是让模型调用这个工具，生成一个长的思维链，从而实现类似思考模型的能力。</p>
+<p>比如这个工具的定义：<br />
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">&quot;name&quot;</span>: <span class="comment">&quot;Thought&quot;</span>,</span><br><span class="line">    <span class="comment">&quot;description&quot;</span>: <span class="comment">&quot;Use this tool to think through complex problems step by step. Generate detailed reasoning and analysis to arrive at a solution.&quot;</span>,</span><br><span class="line">    <span class="comment">&quot;parameters&quot;</span>: &#123;</span><br><span class="line">        <span class="comment">&quot;type&quot;</span>: <span class="comment">&quot;object&quot;</span>,</span><br><span class="line">        <span class="comment">&quot;properties&quot;</span>: &#123;</span><br><span class="line">        <span class="comment">&quot;thought_process&quot;</span>: &#123;</span><br><span class="line">            <span class="comment">&quot;type&quot;</span>: <span class="comment">&quot;string&quot;</span>,</span><br><span class="line">            <span class="comment">&quot;description&quot;</span>: <span class="comment">&quot;A detailed explanation of the reasoning process.&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">&quot;required&quot;</span>: [<span class="comment">&quot;thought_process&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我在使用Claude Sonnet
+4.5模型的时候，没有开启思考，而是通过定义<code>Thought</code>工具，让模型在需要思考的时候调用这个工具，并观察到这个思维链中出现<code>等等</code>,<code>wait</code>这种deepseek称之为<code>aha moment</code>的词汇，说明模型确实在进行思考。</p>
+<p><code>Thought</code>工具还有一个优势是真正的实现了混合思考，因为模型只有在需要思考的时候才会调用这个工具，而不是每次都进行思考，这是工具调用的优势。对于hello这种简单任务，模型根本不会调用<code>Thought</code>工具，会直接给出答案。</p>
+
+    </div>
+
+    
+    
+    
+      
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/09/11/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91-%E4%BA%8C/" rel="prev" title="Agent构建心得及避坑(二)">
+      <i class="fa fa-chevron-left"></i> Agent构建心得及避坑(二)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E8%83%BD%E5%B9%B2%E4%BB%80%E4%B9%88"><span class="nav-text">工具调用能干什么</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E8%83%BD%E8%A7%A3%E5%86%B3%E5%B9%BB%E8%A7%89"><span class="nav-text">工具调用能解决幻觉</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E8%83%BD%E6%8E%A7%E5%88%B6%E5%B7%A5%E4%BD%9C%E6%B5%81"><span class="nav-text">工具调用能控制工作流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%83%BD%E8%AE%A9%E6%A8%A1%E5%9E%8B%E5%90%AC%E8%AF%9D"><span class="nav-text">工具能让模型听话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8%E5%8F%AF%E4%BB%A5%E8%AE%A9%E9%9D%9E%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B%E5%8F%98%E6%88%90%E6%80%9D%E8%80%83%E6%A8%A1%E5%9E%8B"><span class="nav-text">工具调用可以让非思考模型变成思考模型</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="陈华杰"
+      src="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+  <p class="site-author-name" itemprop="name">陈华杰</p>
+  <div class="site-description" itemprop="description">为天地立心，为生民立命，为往圣继绝学，为万世开太平</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">87</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gamersover" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gamersover" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈华杰</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">509k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">7:43</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+<script src="/js/bookmark.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'default',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '2b5e8584032528a65176',
+      clientSecret: '4a98c67c6337be0cd82b30d04699a4dcef47307c',
+      repo        : 'gamersover.github.io',
+      owner       : 'gamersover',
+      admin       : ['gamersover'],
+      id          : '38e9cff678c7f3c89b7023a459843a5c',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

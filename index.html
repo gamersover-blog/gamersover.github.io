@@ -135,7 +135,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">164</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -190,6 +190,120 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.caoqinping.com/2025/11/04/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91-%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
+      <meta itemprop="name" content="陈华杰">
+      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尘雨尘风">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/11/04/Agent%E6%9E%84%E5%BB%BA%E5%BF%83%E5%BE%97%E5%8F%8A%E9%81%BF%E5%9D%91-%E4%B8%89/" class="post-title-link" itemprop="url">Agent构建心得及避坑(三)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-11-04 22:04:20" itemprop="dateCreated datePublished" datetime="2025-11-04T22:04:20+08:00">2025-11-04</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>继续Agent的话题，开一个（三）来讨论讨论工具调用吧</p>
+<h1 id="工具调用能干什么">工具调用能干什么</h1>
+<p>首先通用的定义：工具调用（Tool
+Calling）是指大模型通过调用外部工具或API来获取信息、执行任务或进行计算的能力。工具调用可以极大地扩展模型的功能，使其能够处理更复杂的任务。</p>
+<p>自然很多开发者都认为工具调用就是让模型获取外部数据，比如天气、股票等信息。但其实工具调用的作用远不止于此，工具调用的本质是给模型注入工具的定义（名称、描述、参数等），让模型生成一个<strong>结构化</strong>的数据。</p>
+<p>我觉得上面这个定义才是工具调用的核心。因为结构化数据可以表示很多东西，不仅仅是获取外部数据。下面我来介绍几个特别工具调用的作用。</p>
+<h2 id="工具调用能解决幻觉">工具调用能解决幻觉</h2>
+<p>幻觉是怎么产生的？主要原因在于模型的训练数据有限，模型只能基于已有的数据进行推理和生成。当模型遇到未知的问题或需要精确的信息时，往往会凭空编造答案，从而产生幻觉。</p>
+<p>那怎么解决幻觉呢？最有效的方法就是让模型调用外部的工具或API，获取准确的信息。</p>
+<p>比如对于企业内部的知识库查询，模型本身并不具备企业的内部知识，但通过调用知识库查询工具，模型可以获取到准确的答案，从而避免幻觉的产生。再比如时间这个概念，模型本身并不具备实时的时间信息，在训练数据中模型的时间是早于当前时间的，对于时间敏感的任务，模型很容易产生幻觉，给出错误的时间信息，导致Agent执行错误的操作。但通过调用时间查询工具，模型可以获取到当前的时间，从而避免幻觉。</p>
+<h2 id="工具调用能控制工作流">工具调用能控制工作流</h2>
+<p>典型的TODO工具就是一个工作流控制工具。模型通过调用TODO工具，可以将任务拆解为多个子任务，并按照一定的顺序执行这些子任务，从而实现复杂的工作流。</p>
+<p>再比如你希望Agent最终输出一个可以解析的报告，而不用使用正则从模型输出的文本中去提取相应内容。这时候你就可以定义一个生成报告的工具，工具的参数就是报告的结构化内容。模型通过调用这个工具，生成结构化的报告内容。因为工具的参数本来就是结构化的。在这之前甚至现在还是有许多开发者是在Prompt里定义xml或json的格式，让模型输出；其实Agent模型都有工具调用能力，原生的就支持结构化输出，直接定义工具调用就行了。</p>
+<h2 id="工具能让模型听话">工具能让模型听话</h2>
+<p>如果大家写过提示词，做过Prompt
+Engineering的时候就会发现，模型有时候会不听话，明明提示词里说了不要做某事，模型还是会去做。这个问题其实是很难解决的，尤其是当提示词比较复杂的时候，模型更容易忽略一些细节要求。</p>
+<p>上面的问题是一个非常常见的问题，在社交媒体（X等）上经常能看到类似的Prompt
+Engineering的讨论。比如：提示词应该写让模型干什么，而不是写让模型不干什么。但是有时候在设计Agent的时候，确实需要让模型不去做某事。<br />
+我在设计Agent的时候就经常遇到这种问题，比如我写提示词<br />
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">note</span>&gt;</span><br><span class="line">1. <span class="keyword">DO</span> NOT xxx</span><br><span class="line">2. NEVER <span class="keyword">use</span> xxx</span><br><span class="line">3. 你不能做 xxx</span><br><span class="line">&lt;/<span class="keyword">note</span>&gt;</span><br></pre></td></tr></table></figure><br />
+结果发现无论怎么调整提示词，模型还是会去做xxx。这个问题其实是很难通过提示词来解决的。</p>
+<p>再举个例子，有一些企业内部的名词，在使用websearch工具的时候，往往是搜索不到的甚至是错误的。但同时你无论怎么在提示词里强调不要使用websearch工具去检索企业内部相关名词，模型还是会去使用，导致错误的结果。这时你就可以通过定义工具调用的方式，来让模型听话。比如定义一个叫<code>internal_search</code>的工具，专门用来检索企业内部名词。然后在提示词里告诉模型，所有企业内部名词都必须使用<code>internal_search</code>工具去检索，不能使用websearch工具。这样模型就会遵守这个规则，避免使用错误的工具。</p>
+<p>上面只是一个例子，实际上你可以构造一个输出内容为<code>没有内容</code>的工具（理解为假的工具），然后告诉模型在某些情况下必须调用这个工具。这样就把DO
+NOT改成了 MUST CALL，从而让模型听话。</p>
+<h2
+id="工具调用可以让非思考模型变成思考模型">工具调用可以让非思考模型变成思考模型</h2>
+<p>思考模型（Reasoning
+Model）是指具备多步推理和复杂问题解决能力的模型。相比之下，非思考模型（Non-Reasoning
+Model）则缺乏这种能力，通常只能处理简单的任务。</p>
+<p>确实，思考模型的能力通常更强大，但是延迟更高。我们理想的模型是能够根据任务的复杂度，动态调整思考能力。对于简单任务，比如hello，应该就不需要思考，直接给出答案即可；而对于复杂任务，比如多步推理、复杂计算等，则需要启用思考能力，进行多步推理和计算。这种我们成为<code>混合思考模型</code>。</p>
+<p>而现在没有比较好的混合思考模型（除了glm4.5/4.6），比如o3/GPT-5是无法关闭思考能力的，而且openai给出的方案是使用一个路由模型来决定后端使用什么模型来回答用户问题，这样看起来是一个混合思考模型的方案。再比如Claude
+Deepseek
+Qwen只能通过静态设置来决定是否启用思考能力和思考token数，也无法实现正真的混合思考。</p>
+<p>实际上我个人认为Openai开创的思考模型o1的思路是错误的；思考其实是模型的推理能力，这个应该是模型本身内生的能力，对于非思考模型来说，虽然是直接输出非思考token，但是这也是模型推理的一部分，thinking过程只是模型推理的一种方式而已。也许就不应该把思考和非思考模型区分开来。</p>
+<p>比如说Agent任务，模型在接收到工具的结果后输出：好的，我看到已经返回了结果，这不是一个xxx,
+接下来我需要去xxx；那么这个过程其实也是模型在思考，只不过这种思考不是通过thinking
+token来实现的，而是传统的非思考模型的输出的答案token。</p>
+<p>那怎么让非思考模型具备像o1这种长的思维链呢？其实很简单，就是通过一个<code>Thought</code>工具来实现，这也是Claude曾经提出过的一个工具，<code>Thought</code>工具。这个工具没有实际的功能，只是让模型调用这个工具，生成一个长的思维链，从而实现类似思考模型的能力。</p>
+<p>比如这个工具的定义：<br />
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">&quot;name&quot;</span>: <span class="comment">&quot;Thought&quot;</span>,</span><br><span class="line">    <span class="comment">&quot;description&quot;</span>: <span class="comment">&quot;Use this tool to think through complex problems step by step. Generate detailed reasoning and analysis to arrive at a solution.&quot;</span>,</span><br><span class="line">    <span class="comment">&quot;parameters&quot;</span>: &#123;</span><br><span class="line">        <span class="comment">&quot;type&quot;</span>: <span class="comment">&quot;object&quot;</span>,</span><br><span class="line">        <span class="comment">&quot;properties&quot;</span>: &#123;</span><br><span class="line">        <span class="comment">&quot;thought_process&quot;</span>: &#123;</span><br><span class="line">            <span class="comment">&quot;type&quot;</span>: <span class="comment">&quot;string&quot;</span>,</span><br><span class="line">            <span class="comment">&quot;description&quot;</span>: <span class="comment">&quot;A detailed explanation of the reasoning process.&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">&quot;required&quot;</span>: [<span class="comment">&quot;thought_process&quot;</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我在使用Claude Sonnet
+4.5模型的时候，没有开启思考，而是通过定义<code>Thought</code>工具，让模型在需要思考的时候调用这个工具，并观察到这个思维链中出现<code>等等</code>,<code>wait</code>这种deepseek称之为<code>aha moment</code>的词汇，说明模型确实在进行思考。</p>
+<p><code>Thought</code>工具还有一个优势是真正的实现了混合思考，因为模型只有在需要思考的时候才会调用这个工具，而不是每次都进行思考，这是工具调用的优势。对于hello这种简单任务，模型根本不会调用<code>Thought</code>工具，会直接给出答案。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1295,96 +1409,6 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/insertion-sort
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://blog.caoqinping.com/2023/11/12/leetcode%E9%A2%98%E8%A7%A3146/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/26238198?s=400&u=6fc887359a7fbb2f64ad0276cd01f79660fd28db&v=4">
-      <meta itemprop="name" content="陈华杰">
-      <meta itemprop="description" content="为天地立心，为生民立命，为往圣继绝学，为万世开太平">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="尘雨尘风">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/12/leetcode%E9%A2%98%E8%A7%A3146/" class="post-title-link" itemprop="url">leetcode题解146：LRU缓存</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-12 12:57:44" itemprop="dateCreated datePublished" datetime="2023-11-12T12:57:44+08:00">2023-11-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="描述">描述</h2>
-<p>该题来自于<a
-target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">力扣第146题</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/12/leetcode%E9%A2%98%E8%A7%A3146/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1456,7 +1480,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">164</span>
+          <span class="site-state-item-count">165</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1511,13 +1535,13 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">506k</span>
+    <span title="站点总字数">509k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:40</span>
+    <span title="站点阅读时长">7:43</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
