@@ -141,7 +141,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -275,7 +275,7 @@ target="_blank" rel="noopener" href="https://stackoverflow.com/questions/7457018
 target="_blank" rel="noopener" href="https://nuxt.com/docs/guide/directory-structure/server">这里</a></p>
 <p>nuxt3有一个目录<code>server</code>，该目录下可以部署api服务，从而解决思路是利用api服务自己写一个反向代理就好了。</p>
 <p>比如在<code>server</code>下新建一个路径<code>api/openai.js</code>，代码如下：<br />
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="keyword">async</span> (event) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> body = <span class="keyword">await</span> <span class="title function_">readBody</span>(event)</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(body.<span class="property">url</span> + <span class="string">&quot;/chat/completions&quot;</span>, &#123;</span><br><span class="line">            <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">            <span class="attr">headers</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;Authorization&#x27;</span>: <span class="string">`Bearer <span class="subst">$&#123;body.sk || <span class="string">&#x27;sk-none&#x27;</span>&#125;</span>`</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">                <span class="attr">messages</span>: body.<span class="property">messages</span>,</span><br><span class="line">                <span class="attr">model</span>: body.<span class="property">model</span>,</span><br><span class="line">                <span class="attr">temperature</span>: body.<span class="property">temperature</span>,</span><br><span class="line">                <span class="attr">max_tokens</span>: body.<span class="property">max_tokens</span>,</span><br><span class="line">                <span class="attr">stop</span>: body.<span class="property">stop</span>,</span><br><span class="line">                <span class="attr">stream</span>: body.<span class="property">stream</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">sendStream</span>(event, response.<span class="property">body</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(e)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="attr">error</span>: e&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineEventHandler</span>(<span class="title function_">async</span> (event) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> body = <span class="keyword">await</span> <span class="title function_">readBody</span>(event)</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> response = <span class="keyword">await</span> <span class="title function_">fetch</span>(body.<span class="property">url</span> + <span class="string">&quot;/chat/completions&quot;</span>, &#123;</span><br><span class="line">            <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">            <span class="attr">headers</span>: &#123;</span><br><span class="line">                <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span>,</span><br><span class="line">                <span class="string">&#x27;Authorization&#x27;</span>: <span class="string">`Bearer <span class="subst">$&#123;body.sk || <span class="string">&#x27;sk-none&#x27;</span>&#125;</span>`</span></span><br><span class="line">            &#125;,</span><br><span class="line">            <span class="attr">body</span>: <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">                <span class="attr">messages</span>: body.<span class="property">messages</span>,</span><br><span class="line">                <span class="attr">model</span>: body.<span class="property">model</span>,</span><br><span class="line">                <span class="attr">temperature</span>: body.<span class="property">temperature</span>,</span><br><span class="line">                <span class="attr">max_tokens</span>: body.<span class="property">max_tokens</span>,</span><br><span class="line">                <span class="attr">stop</span>: body.<span class="property">stop</span>,</span><br><span class="line">                <span class="attr">stream</span>: body.<span class="property">stream</span></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">sendStream</span>(event, response.<span class="property">body</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(e)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="attr">error</span>: e&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>然后前端可以直接<code>fetch('/api/openai')</code>来发送请求了。</p>
 <h2 id="总结">总结</h2>
 <p>对于刚接触不久的前端er来说，一直在思考反向代理的服务地址动态配置的方法，研究了半天，发现并没有什么方法。最后还是要自己写一个反向代理。</p>
@@ -390,7 +390,7 @@ reponse还挺麻烦，比如<code>vercel</code>的ai库就提供这个功能，�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -435,7 +435,7 @@ reponse还挺麻烦，比如<code>vercel</code>的ai库就提供这个功能，�
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -445,13 +445,13 @@ reponse还挺麻烦，比如<code>vercel</code>的ai库就提供这个功能，�
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">509k</span>
+    <span title="站点总字数">512k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:43</span>
+    <span title="站点阅读时长">7:46</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

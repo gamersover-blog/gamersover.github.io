@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -276,7 +276,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/validate-binar
 <p>这里另一种方法，二叉搜索树的特点是：左子树的所有结点一定小于根结点，右子树的所有结点一定大于根节点，所以从根结点往左走，左子树的上界需要更新，往右走，右子树的下界需要更新；从而如果定义一个函数<code>f(root, lower, upper)</code>表示以<code>root</code>为根结点的树，其所有结点是否都在下界<code>lower</code>与<code>upper</code>之间，从而可以递归判断左子树<code>f(root.left, lower, root.val)</code>，只需更新上界，同理递归判断右子树<code>f(root.right, root.val, right)</code>，只需更新下界。</p>
 <p>其他细节可以看代码。</p>
 <h2 id="代码">代码</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isValidBST</span>(<span class="params">self, root: <span class="type">Optional</span>[TreeNode]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">return</span> self.is_valid(root, -math.inf, math.inf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_valid</span>(<span class="params">self, root, lower, upper</span>):</span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> root.val &lt;= lower <span class="keyword">or</span> root.val &gt;= upper:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.is_valid(root.left, lower, root.val):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.is_valid(root.right, root.val, upper):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">isValidBST</span>(<span class="params">self, root: <span class="type">Optional</span>[TreeNode]</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="variable language_">self</span>.is_valid(root, -math.inf, math.inf)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">is_valid</span>(<span class="params">self, root, lower, upper</span>):</span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> root.val &lt;= lower <span class="keyword">or</span> root.val &gt;= upper:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="variable language_">self</span>.is_valid(root.left, lower, root.val):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> <span class="variable language_">self</span>.is_valid(root.right, root.val, upper):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -287,10 +287,10 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/validate-binar
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/11/06/leetcode题解105/" rel="bookmark">leetcode题解105：从前序与中序遍历序列构造二叉树</a></div>
+      <div class="popular-posts-title"><a href="/2022/11/08/leetcode题解113/" rel="bookmark">leetcode题解113：路径总和 II</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/11/08/leetcode题解113/" rel="bookmark">leetcode题解113：路径总和 II</a></div>
+      <div class="popular-posts-title"><a href="/2022/11/06/leetcode题解105/" rel="bookmark">leetcode题解105：从前序与中序遍历序列构造二叉树</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2022/11/08/leetcode题解114/" rel="bookmark">leetcode题解114：二叉树展开为链表</a></div>
@@ -400,7 +400,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/validate-binar
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -445,7 +445,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/validate-binar
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -455,13 +455,13 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/validate-binar
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">509k</span>
+    <span title="站点总字数">512k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:43</span>
+    <span title="站点阅读时长">7:46</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>

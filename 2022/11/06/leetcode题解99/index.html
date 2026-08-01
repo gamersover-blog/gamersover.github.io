@@ -140,7 +140,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -276,7 +276,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/recover-binary
 <p>遍历序列，如果第一次找到逆序对，则前面的数（即比较大的）记为第一个结点，后面的数（即比较小的）记为第二个结点，然后继续遍历，如果第二次遇到了逆序对，则将第二个结点更新为后面的数，也有可能只有一个逆序对，这时第二个结点就不需要更新了，因为此时一定是相邻的数交换了。</p>
 <p>从而可以用中序遍历解决该问题，如果觉得递归写法有点难理解，可以将中序遍历和判断分开。</p>
 <h2 id="代码">代码</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">recoverTree</span>(<span class="params">self, root: <span class="type">Optional</span>[TreeNode]</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Do not return anything, modify root in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        self.first = <span class="literal">None</span></span><br><span class="line">        self.second = <span class="literal">None</span></span><br><span class="line">        self.pred = TreeNode(<span class="built_in">float</span>(<span class="string">&quot;-inf&quot;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">in_order</span>(<span class="params">root</span>):</span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            in_order(root.left)</span><br><span class="line">            <span class="keyword">if</span> self.pred.val &gt; root.val:</span><br><span class="line">                <span class="keyword">if</span> self.first <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    self.first = self.pred</span><br><span class="line">                self.second = root</span><br><span class="line"></span><br><span class="line">            self.pred = root</span><br><span class="line">            in_order(root.right)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        in_order(root)</span><br><span class="line">        self.first.val, self.second.val = self.second.val, self.first.val</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">recoverTree</span>(<span class="params">self, root: <span class="type">Optional</span>[TreeNode]</span>) -&gt; <span class="literal">None</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Do not return anything, modify root in-place instead.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="variable language_">self</span>.first = <span class="literal">None</span></span><br><span class="line">        <span class="variable language_">self</span>.second = <span class="literal">None</span></span><br><span class="line">        <span class="variable language_">self</span>.pred = TreeNode(<span class="built_in">float</span>(<span class="string">&quot;-inf&quot;</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">in_order</span>(<span class="params">root</span>):</span><br><span class="line">            <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            in_order(root.left)</span><br><span class="line">            <span class="keyword">if</span> <span class="variable language_">self</span>.pred.val &gt; root.val:</span><br><span class="line">                <span class="keyword">if</span> <span class="variable language_">self</span>.first <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                    <span class="variable language_">self</span>.first = <span class="variable language_">self</span>.pred</span><br><span class="line">                <span class="variable language_">self</span>.second = root</span><br><span class="line"></span><br><span class="line">            <span class="variable language_">self</span>.pred = root</span><br><span class="line">            in_order(root.right)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> root <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">        in_order(root)</span><br><span class="line">        <span class="variable language_">self</span>.first.val, <span class="variable language_">self</span>.second.val = <span class="variable language_">self</span>.second.val, <span class="variable language_">self</span>.first.val</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -287,10 +287,10 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/recover-binary
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/11/06/leetcode题解105/" rel="bookmark">leetcode题解105：从前序与中序遍历序列构造二叉树</a></div>
+      <div class="popular-posts-title"><a href="/2022/11/08/leetcode题解113/" rel="bookmark">leetcode题解113：路径总和 II</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="/2022/11/08/leetcode题解113/" rel="bookmark">leetcode题解113：路径总和 II</a></div>
+      <div class="popular-posts-title"><a href="/2022/11/06/leetcode题解105/" rel="bookmark">leetcode题解105：从前序与中序遍历序列构造二叉树</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="/2022/11/08/leetcode题解114/" rel="bookmark">leetcode题解114：二叉树展开为链表</a></div>
@@ -400,7 +400,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/recover-binary
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-count">166</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -445,7 +445,7 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/recover-binary
 <div class="copyright">
   
   &copy; 2019 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -455,13 +455,13 @@ target="_blank" rel="noopener" href="https://leetcode.cn/problems/recover-binary
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">509k</span>
+    <span title="站点总字数">512k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">7:43</span>
+    <span title="站点阅读时长">7:46</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
